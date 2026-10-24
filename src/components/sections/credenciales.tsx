@@ -38,10 +38,15 @@ function CountUpStat({ value, prefix }: { value: number; prefix: string }) {
     return () => controls.stop()
   }, [inView, reduce, value, prefix])
 
+  // Calculate final string length to reserve width (prevent layout shift during count-up)
+  const finalString = `${prefix}${value}`
+  const minWidth = `${finalString.length}ch`
+
   return (
     <span
       ref={ref}
-      className="font-display block text-[clamp(3rem,6vw,4rem)] font-extrabold tabular-nums"
+      className="font-display inline-block text-left text-[clamp(3rem,6vw,4rem)] font-extrabold tabular-nums"
+      style={{ minWidth }}
     >
       {prefix}
       {value}
