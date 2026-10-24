@@ -64,7 +64,13 @@ function Credenciales() {
     <Section tone="light">
       <Container>
         <Reveal>
-          <Eyebrow>{HOME.credenciales.eyebrow}</Eyebrow>
+          {/*
+           * Único título de sección sin h2 visible (el diseño apoya el peso
+           * visual en las cifras, no en un titular): se añade un h2 sr-only
+           * para no romper la jerarquía de encabezados (h3 más abajo).
+           */}
+          <h2 className="sr-only">{HOME.credenciales.eyebrow}</h2>
+          <Eyebrow aria-hidden>{HOME.credenciales.eyebrow}</Eyebrow>
         </Reveal>
 
         <div className="mt-8 grid grid-cols-1 overflow-hidden rounded-3xl border border-[var(--brand-timberwolf)] bg-white md:grid-cols-2">

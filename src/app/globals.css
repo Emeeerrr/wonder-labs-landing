@@ -195,6 +195,15 @@
     outline: 2px solid var(--brand-blue);
     outline-offset: 2px;
   }
+  /* Evita el delay de 300ms y el double-tap-zoom en elementos interactivos táctiles. */
+  a,
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
 }
 
 /* Respeto por prefers-reduced-motion: elimina transiciones y animaciones largas. */
