@@ -9,6 +9,7 @@ import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
 import { MoleculeCanvas } from "@/components/three/molecule-canvas"
 import { HOME } from "@/content/home"
+import { useReducedMotionSafe } from "@/lib/use-reduced-motion-safe"
 
 /** Curva ease-out compartida por toda la intro. */
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
@@ -25,30 +26,6 @@ const ACCENT_WORD = "operación"
 
 /** Grano sutil (feTurbulence inline, ≤3% de opacidad sobre el degradé). */
 const NOISE_TEXTURE = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
-
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)"
-
-function subscribeReducedMotion(onChange: () => void) {
-  const mql = window.matchMedia(REDUCED_MOTION_QUERY)
-  mql.addEventListener("change", onChange)
-  return () => mql.removeEventListener("change", onChange)
-}
-
-/**
- * `useReducedMotion()` de motion lee matchMedia de forma síncrona en el primer
- * render de cliente pero devuelve null en SSR; ramificar props/JSX con ese
- * valor desincroniza el HTML del servidor y la hidratación para usuarios con
- * reduced-motion. `useSyncExternalStore` garantiza que servidor y render de
- * hidratación coincidan siempre (snapshot de servidor: false) y aplica la
- * preferencia real inmediatamente después de hidratar, sin mismatch.
- */
-function useReducedMotionSafe() {
-  return React.useSyncExternalStore(
-    subscribeReducedMotion,
-    () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
-    () => false
-  )
-}
 
 function renderTitleLine(line: string) {
   const index = line.indexOf(ACCENT_WORD)

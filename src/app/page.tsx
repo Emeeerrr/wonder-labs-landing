@@ -1,11 +1,15 @@
+import { ParaQuien } from "@/components/sections/para-quien"
+import { Reto } from "@/components/sections/reto"
+import { Ruta } from "@/components/sections/ruta"
 import { Hero } from "@/components/sections/hero"
 
 export default function Home() {
   return (
     <>
       <Hero />
-      {/* TODO(task-4): ancla temporal para "Conoce cómo trabajamos"; la sección Ruta la reemplaza. */}
-      <div id="ruta" aria-hidden />
+      <Reto />
+      <Ruta />
+      <ParaQuien />
     </>
   )
 }
