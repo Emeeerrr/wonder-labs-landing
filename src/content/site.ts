@@ -1,7 +1,8 @@
 export const SITE = {
   name: "WonderLabs",
-  // TODO(task-8): description definitiva para metadata/OG.
-  description: "La unión entre el talento humano y el poder tecnológico.",
+  description:
+    "Implementamos sistemas de IA y formamos equipos en Colombia. Diagnóstico, formación, implementación y acompañamiento para que la IA sea tu ventaja competitiva.",
+  // TODO(wonderlabs): dominio real pendiente de compra/DNS; placeholder hasta entonces.
   url: "https://wonderlabs.example",
   nav: [
     { label: "Servicios", href: "/servicios" },

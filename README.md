@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WonderLabs — landing
 
-## Getting Started
+Landing comercial de WonderLabs: home, `/servicios`, `/contacto` (formulario con server action) y páginas legales (`/legal/privacidad`, `/legal/terminos`). Next.js App Router con contenido en español (es_CO).
 
-First, run the development server:
+## Stack
+
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- [Base UI](https://base-ui.com) + [shadcn](https://ui.shadcn.com) para primitivas accesibles (accordion, select, sheet, checkbox...)
+- [motion](https://motion.dev) para animación e interacción (con soporte de `prefers-reduced-motion`)
+- React Three Fiber + drei para la molécula 3D del hero
+- react-hook-form + zod para el formulario de contacto
+- Bun como runtime y gestor de paquetes
+
+## Requisitos
+
+- [Bun](https://bun.sh) 1.3+. Este proyecto usa únicamente `bun`/`bunx`; no hay `package-lock.json` ni `yarn.lock`.
+
+## Desarrollo local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Comando                | Qué hace                                 |
+| ---------------------- | ---------------------------------------- |
+| `bun run dev`          | Servidor de desarrollo (Turbopack)       |
+| `bun run build`        | Build de producción                      |
+| `bun run start`        | Sirve el build de producción             |
+| `bun run lint`         | ESLint (`eslint-config-next` + Prettier) |
+| `bun run format`       | Formatea todo el repo con Prettier       |
+| `bun run format:check` | Verifica formato sin escribir cambios    |
+| `bun run typecheck`    | `tsc --noEmit`                           |
 
-## Learn More
+Antes de dar por cerrada una tarea, corre la verificación completa:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+bun run build && bunx tsc --noEmit && bun run lint && bun run format:check
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Docker
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+El `Dockerfile` hace build multi-stage con `bun` y sirve con Next en modo `standalone` sobre `node:22-alpine`.
 
-## Deploy on Vercel
+```bash
+# Build + producción, puerto 3000
+docker compose up web
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Desarrollo con hot reload (monta el repo como volumen), puerto 3001
+docker compose --profile dev up dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy en Vercel
+
+El repo trae `vercel.json` (`framework: nextjs`), así que cualquiera de las dos vías funciona sin configuración adicional:
+
+- **Git integration**: conecta el repo en el dashboard de Vercel; cada push a la rama por defecto dispara un deploy.
+- **CLI**: `bunx vercel` (preview) o `bunx vercel --prod` (producción).
+
+## Estructura de carpetas
+
+```
+src/
+  app/                    Rutas (App Router): home, /servicios, /contacto, /legal/*,
+                           sitemap.ts, robots.ts, icon.svg, opengraph-image.tsx
+  components/
+    brand/                Primitivas de marca: Container, Section, Eyebrow, Logo, Reveal
+    layout/                Header y Footer globales
+    sections/              Secciones de la home y del formulario de contacto
+    sections/servicios/    Secciones propias de /servicios (hero, etapas, FAQ, CTA)
+    three/                 Molécula 3D del hero (React Three Fiber)
+    ui/                     Primitivas shadcn/Base UI (accordion, select, sheet, field...)
+  content/                 Copy del sitio tipado (site.ts, home.ts, servicios.ts)
+  lib/                     Utilidades, schemas de zod, server actions, hooks
+```
+
+## Convenciones de marca y accesibilidad
+
+- Paleta y tipografías de marca viven como tokens `--brand-*` en `src/app/globals.css`; las secciones oscuras usan la clase `.chapter-dark`, que remapea los tokens semánticos de shadcn.
+- CTAs sobre Tangerine siempre usan texto `midnight-deep` (nunca blanco: el contraste blanco-sobre-tangerine es ~2.7:1, insuficiente para AA).
+- Texto secundario sobre fondo oscuro usa `rgba(245,245,245,0.72)` como piso de contraste (~6.6:1 sobre Midnight).
+- Toda animación con `motion` respeta `prefers-reduced-motion` vía el hook `useReducedMotionSafe` (`src/lib/use-reduced-motion-safe.ts`), que evita mismatches de hidratación entre servidor y cliente.
+- Hay skip link ("Saltar al contenido") al `<main id="contenido">` como primer elemento enfocable de cada página.
+
+## Pendientes de validación
+
+Lo siguiente está marcado con comentarios `TODO(wonderlabs)` en el código y debe resolverse antes de publicar el sitio en producción:
+
+- **Hero**: el titular definitivo (opción A) está pendiente de confirmación; las opciones B y C quedan documentadas en el borrador de copy.
+- **Datos de contacto**: teléfono y correo directos del contacto comercial (`/contacto`), NIT y razón social (footer y páginas legales), canal de correo dedicado para solicitudes de habeas data.
+- **Cifras y credenciales**: certificaciones, cursos y asesorías mencionadas en "Credenciales" (home) están pendientes de validación; logos de clientes pendientes de autorización.
+- **Precios**: el precio del diagnóstico de madurez (`/servicios`) está sin confirmar.
+- **Legales**: `/legal/privacidad` y `/legal/terminos` necesitan revisión de un abogado antes de publicarse, además de razón social y NIT.
+- **Contratación pública**: modalidades (licitación, contratación directa, convenios) pendientes de detallar en la FAQ de `/servicios` una vez estén confirmadas.
+- **Lead routing**: el server action de contacto (`src/lib/actions/contact.ts`) no está conectado a un destino real (correo/CRM); hoy solo valida y responde.
+- **Plazo de respuesta**: el mensaje de confirmación del formulario dice "1 día hábil"; confirmar con el equipo comercial.
+- **Redes sociales**: el footer no tiene enlaces a redes; agregar cuando existan.
+- **SVGs de marca**: el isotipo (`src/components/brand/logo.tsx`, variante `mark`) y el favicon (`src/app/icon.svg`) son placeholders geométricos (tres círculos con degradé midnight→blue); reemplazar por los SVG oficiales del Brand Kit cuando estén disponibles.
+- **OG image**: `src/app/opengraph-image.tsx` trae la fuente Bitter desde Google Fonts en build time; si el build corre sin red, cae a un serif de sistema. Empaquetar el `.ttf` en el repo eliminaría esa dependencia.
+- **Dominio**: `SITE.url` en `src/content/site.ts` es un placeholder (`https://wonderlabs.example`); actualizar con el dominio real antes de publicar (afecta metadata, sitemap y robots).
+- **Fotos de equipo**: no hay fotografías reales del equipo en el sitio; pendiente de sesión de fotos.

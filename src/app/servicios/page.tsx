@@ -8,11 +8,10 @@ import { Faq } from "@/components/sections/servicios/faq"
 import { ServiciosCtaFinal } from "@/components/sections/servicios/cta-final"
 import { ServiciosHero } from "@/components/sections/servicios/hero"
 
-// TODO(task-8): description definitiva para metadata/OG (ver SEO final).
 export const metadata: Metadata = {
   title: "Servicios",
   description:
-    "Diagnóstico, formación, implementación y acompañamiento en IA para empresas y entidades públicas en Colombia.",
+    "Una ruta de cuatro etapas: diagnóstico, formación, implementación y acompañamiento. Programas de formación en IA para líderes y equipos.",
 }
 
 export default function Servicios() {

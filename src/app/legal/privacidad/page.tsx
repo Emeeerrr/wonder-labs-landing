@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import { Container } from "@/components/brand/container"
 import { Section } from "@/components/brand/section"
 
-// TODO(task-8): description definitiva para metadata/OG (ver SEO final).
 export const metadata: Metadata = {
   title: "Política de privacidad",
   description: "Política de tratamiento de datos personales de WonderLabs.",

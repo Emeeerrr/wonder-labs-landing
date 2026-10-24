@@ -6,11 +6,10 @@ import { Reveal } from "@/components/brand/reveal"
 import { Section } from "@/components/brand/section"
 import { ContactForm } from "@/components/sections/contact-form"
 
-// TODO(task-8): description definitiva para metadata/OG (ver SEO final).
 export const metadata: Metadata = {
   title: "Contacto",
   description:
-    "Agenda la reunión inicial sin costo con WonderLabs. Entendemos objetivos, retos y punto de partida de tu organización.",
+    "Agenda una reunión inicial sin costo. Te respondemos con una propuesta con alcance y cronograma a la medida.",
 }
 
 function ContactoPage() {
