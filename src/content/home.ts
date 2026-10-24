@@ -79,6 +79,55 @@ export const HOME = {
       },
     ],
   },
+  credenciales: {
+    eyebrow: "Credenciales",
+    stats: [
+      {
+        value: 5,
+        prefix: "+",
+        label: "años aplicando la metodología de formación de nuestro equipo",
+      },
+      {
+        value: 50,
+        prefix: "+",
+        label: "clientes atendidos por nuestro equipo en Colombia, Estados Unidos y Latinoamérica",
+      },
+    ],
+    listIntro: "Nuestro equipo cuenta con:",
+    list: [
+      "Certificaciones oficiales de Anthropic y Microsoft",
+      "Instructores con cursos publicados en Platzi",
+      "Asesoría al Gobierno de Colombia en la ley de inteligencia artificial",
+      "Herramientas propias para las formaciones",
+    ],
+  },
+  resultados: {
+    eyebrow: "Resultados",
+    title: "Lo que gana tu organización.",
+    benefits: [
+      {
+        title: "Capacidad liberada",
+        text: "El tiempo que hoy se va en tareas repetitivas vuelve a tu equipo para pensar y atender más trabajo.",
+      },
+      {
+        title: "Conocimiento institucionalizado",
+        text: "La forma de trabajar deja de depender de una o dos personas y queda en tu organización.",
+      },
+      {
+        title: "Entregables más rápidos",
+        text: "Informes, propuestas y presentaciones salen más rápido y con la identidad de tu marca.",
+      },
+      {
+        title: "IA segura y bajo control",
+        text: "Reglas claras sobre qué información se usa, quién decide y cómo se protege lo sensible.",
+      },
+    ],
+  },
+  ctaFinal: {
+    title: "Hagamos que la IA trabaje para tu organización.",
+    text: "En una reunión inicial sin costo entendemos qué necesitas y te presentamos una propuesta con alcance y cronograma a la medida.",
+    cta: { label: "Agenda la reunión inicial", href: "/contacto" },
+  },
 } as const
 
 export type HomeContent = typeof HOME
