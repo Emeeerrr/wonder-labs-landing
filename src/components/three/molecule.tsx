@@ -124,6 +124,13 @@ function MoleculeScene({ reduce }: { reduce: boolean }) {
  * distort/speed 0, sin parallax ni órbita, y frameloop bajo demanda.
  */
 function Molecule() {
+  /*
+   * A diferencia del hero (que normaliza el hook vía estado + efecto para no
+   * desincronizar SSR e hidratación), aquí `?? false` es seguro: este
+   * componente nunca se renderiza en servidor (import dinámico con
+   * `ssr: false`), así que no existe HTML de SSR con el que el primer render
+   * de cliente pueda discrepar.
+   */
   const reduce = useReducedMotion() ?? false
 
   return (
