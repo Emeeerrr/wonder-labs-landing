@@ -1,3 +1,6 @@
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
+
 import { ImageResponse } from "next/og"
 
 import { SITE } from "@/content/site"
@@ -7,35 +10,16 @@ export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
 /**
- * Bitter 700 no está empaquetado como binario en el repo (solo se carga vía
- * next/font/google en el árbol de React normal). `ImageResponse` necesita los
- * bytes de la fuente directamente, así que se intenta traerlos de Google
- * Fonts en build time; si la red no está disponible (build aislado/offline)
- * se cae a un serif de sistema con tracking ajustado para no perder peso de
- * marca. TODO(wonderlabs): empaquetar el .ttf de Bitter en el repo para que
- * el build no dependa de red.
+ * Bitter ExtraBold (800), empaquetado como .ttf estático en el repo
+ * (`src/assets/fonts/bitter-extrabold.ttf`, instanciado desde el variable
+ * font oficial de google/fonts) para que `ImageResponse` no dependa de red
+ * en build time. Mismo peso que usa el resto del sitio para `font-display`
+ * (`font-extrabold` = 800, ver hero). Licencia SIL Open Font License 1.1,
+ * ver `src/assets/fonts/OFL.txt`.
  */
-async function loadBitterBold(): Promise<ArrayBuffer | null> {
-  try {
-    const cssResponse = await fetch(
-      "https://fonts.googleapis.com/css2?family=Bitter:wght@700&display=swap",
-      { headers: { "User-Agent": "Mozilla/5.0" } }
-    )
-    const css = await cssResponse.text()
-    const match = css.match(/src: url\(([^)]+)\) format\('truetype'\)/)
-    const fontUrl = match?.[1]
-    if (!fontUrl) return null
-
-    const fontResponse = await fetch(fontUrl)
-    return await fontResponse.arrayBuffer()
-  } catch {
-    return null
-  }
-}
+const bitterExtraBold = await readFile(join(process.cwd(), "src/assets/fonts/bitter-extrabold.ttf"))
 
 export default async function Image() {
-  const bitterBold = await loadBitterBold()
-
   return new ImageResponse(
     <div
       style={{
@@ -48,7 +32,8 @@ export default async function Image() {
         backgroundImage:
           "linear-gradient(160deg, #01242C, #003A45), radial-gradient(circle at 78% 30%, rgba(0,160,216,0.45), transparent 60%)",
         backgroundBlendMode: "normal, screen",
-        fontFamily: bitterBold ? "Bitter" : "Georgia, 'Times New Roman', serif",
+        fontFamily: "Bitter",
+        position: "relative",
       }}
     >
       {/* Orbe degradé: eco de la molécula del hero, blue sobre midnight. */}
@@ -81,7 +66,7 @@ export default async function Image() {
         style={{
           marginTop: 28,
           fontSize: 84,
-          fontWeight: 700,
+          fontWeight: 800,
           color: "#F5F5F5",
           letterSpacing: "-0.01em",
         }}
@@ -103,9 +88,7 @@ export default async function Image() {
     </div>,
     {
       ...size,
-      fonts: bitterBold
-        ? [{ name: "Bitter", data: bitterBold, style: "normal", weight: 700 }]
-        : undefined,
+      fonts: [{ name: "Bitter", data: bitterExtraBold, style: "normal", weight: 800 }],
     }
   )
 }

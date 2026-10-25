@@ -70,6 +70,9 @@ El repo trae `vercel.json` (`framework: nextjs`), así que cualquiera de las dos
 src/
   app/                    Rutas (App Router): home, /servicios, /contacto, /legal/*,
                            sitemap.ts, robots.ts, icon.svg, opengraph-image.tsx
+  assets/
+    fonts/                 Bitter ExtraBold (.ttf) empaquetado para opengraph-image.tsx
+                           (SIL Open Font License 1.1, ver OFL.txt)
   components/
     brand/                Primitivas de marca: Container, Section, Eyebrow, Logo, Reveal
     layout/                Header y Footer globales
@@ -103,6 +106,5 @@ Lo siguiente está marcado con comentarios `TODO(wonderlabs)` en el código y de
 - **Plazo de respuesta**: el mensaje de confirmación del formulario dice "1 día hábil"; confirmar con el equipo comercial.
 - **Redes sociales**: el footer no tiene enlaces a redes; agregar cuando existan.
 - **SVGs de marca**: el isotipo (`src/components/brand/logo.tsx`, variante `mark`) y el favicon (`src/app/icon.svg`) son placeholders geométricos (tres círculos con degradé midnight→blue); reemplazar por los SVG oficiales del Brand Kit cuando estén disponibles.
-- **OG image**: `src/app/opengraph-image.tsx` trae la fuente Bitter desde Google Fonts en build time; si el build corre sin red, cae a un serif de sistema. Empaquetar el `.ttf` en el repo eliminaría esa dependencia.
 - **Dominio**: `SITE.url` en `src/content/site.ts` es un placeholder (`https://wonderlabs.example`); actualizar con el dominio real antes de publicar (afecta metadata, sitemap y robots).
 - **Fotos de equipo**: no hay fotografías reales del equipo en el sitio; pendiente de sesión de fotos.
