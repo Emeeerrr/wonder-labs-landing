@@ -73,11 +73,6 @@ function Hero() {
   return (
     <MotionConfig reducedMotion="user">
       <section className="chapter-dark relative flex min-h-dvh flex-col overflow-hidden bg-[linear-gradient(160deg,var(--brand-midnight-deep),var(--brand-midnight))]">
-        {/* Sin JS la intro no corre: fuerza el estado final para que el texto sea visible. */}
-        <noscript>
-          <style>{`[data-hero-intro]{opacity:1!important;transform:none!important}`}</style>
-        </noscript>
-
         {/* Grano sutil sobre el degradé */}
         <div
           aria-hidden

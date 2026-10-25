@@ -30,11 +30,11 @@ function ProgressLine({ targetRef }: { targetRef: React.RefObject<HTMLElement | 
   return (
     <div
       aria-hidden
-      className="absolute top-0 bottom-0 left-0 w-px bg-white/12 md:left-0"
+      className="absolute top-0 bottom-0 left-0 w-px bg-white/12"
       style={{ transformOrigin: "top" }}
     >
       <motion.div
-        className="from-brand-blue to-brand-midnight absolute inset-0 origin-top bg-gradient-to-b"
+        className="from-brand-blue to-brand-midnight absolute inset-0 origin-top bg-linear-to-b"
         style={{ scaleY: reduce ? 1 : scaleY }}
       />
     </div>
@@ -75,11 +75,16 @@ function Ruta() {
           </h2>
         </Reveal>
 
-        <ol ref={listRef} className="relative mt-16 flex flex-col gap-12 pl-10 md:gap-16 md:pl-16">
+        <div className="relative mt-16">
           <ProgressLine targetRef={listRef} />
-          {HOME.ruta.stages.map((stage, index) => (
-            <Reveal key={stage.number} delay={index * 0.08}>
-              <li className="relative grid grid-cols-[auto_1fr] items-start gap-5 md:gap-8">
+          <ol ref={listRef} className="flex flex-col gap-12 pl-10 md:gap-16 md:pl-16">
+            {HOME.ruta.stages.map((stage, index) => (
+              <Reveal
+                key={stage.number}
+                as="li"
+                delay={index * 0.08}
+                className="relative grid grid-cols-[auto_1fr] items-start gap-5 md:gap-8"
+              >
                 <span className="absolute top-1.5 -left-10 md:-left-16">
                   <StageOrb />
                 </span>
@@ -94,10 +99,10 @@ function Ruta() {
                     {stage.text}
                   </p>
                 </div>
-              </li>
-            </Reveal>
-          ))}
-        </ol>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
 
         <Reveal delay={0.1} className="mt-16 max-w-[56ch] pl-10 md:pl-16">
           <p className="text-muted-foreground text-base leading-relaxed">{HOME.ruta.note}</p>

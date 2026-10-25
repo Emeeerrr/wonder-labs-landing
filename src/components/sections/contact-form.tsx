@@ -63,6 +63,7 @@ const selectControlClassName = "data-[size=default]:h-11 text-base md:text-base"
 function ContactForm() {
   const [isPending, setIsPending] = React.useState(false)
   const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [submitError, setSubmitError] = React.useState(false)
   const formRef = React.useRef<HTMLFormElement>(null)
 
   const {
@@ -78,13 +79,23 @@ function ContactForm() {
   })
 
   // Enfoca el primer campo inválido tras un submit fallido (cliente o servidor).
+  // Para los Select (Base UI) `elements.namedItem(name)` resuelve al input
+  // oculto que sincroniza el valor del formulario, no al trigger visible: no
+  // es focusable y `.focus()` no hace nada. En ese caso caemos al trigger
+  // real por id (`${name}-trigger`, ver los `SelectTrigger` más abajo).
   const focusFirstInvalidField = React.useCallback((fieldNames: Iterable<string>) => {
     const firstInvalidName = Array.from(fieldNames)[0]
     if (!firstInvalidName || !formRef.current) return
 
     const field = formRef.current.elements.namedItem(firstInvalidName)
-    if (field instanceof HTMLElement) {
+    if (field instanceof HTMLElement && field.offsetParent !== null) {
       field.focus()
+      return
+    }
+
+    const trigger = document.getElementById(`${firstInvalidName}-trigger`)
+    if (trigger instanceof HTMLElement) {
+      trigger.focus()
     }
   }, [])
 
@@ -92,6 +103,7 @@ function ContactForm() {
     (event: React.FormEvent<HTMLFormElement>) => {
       const onValid = async (data: ContactInput) => {
         setIsPending(true)
+        setSubmitError(false)
         try {
           const result = await submitContact(data)
 
@@ -108,6 +120,8 @@ function ContactForm() {
           }
 
           setIsSubmitted(true)
+        } catch {
+          setSubmitError(true)
         } finally {
           setIsPending(false)
         }
@@ -381,6 +395,7 @@ function ContactForm() {
           <Textarea
             id="mensaje"
             rows={5}
+            className="text-base md:text-base"
             aria-invalid={!!errors.mensaje}
             aria-describedby={errors.mensaje ? "mensaje-error" : undefined}
             {...register("mensaje")}
@@ -431,6 +446,12 @@ function ContactForm() {
       </FieldSet>
 
       <FieldDescription>Los campos marcados con * son obligatorios.</FieldDescription>
+
+      {submitError && (
+        <p role="alert" className="text-destructive text-sm font-normal">
+          No pudimos enviar tu solicitud. Intenta de nuevo.
+        </p>
+      )}
 
       <button
         type="submit"

@@ -61,7 +61,7 @@ function EtapaImplementacion() {
 
           <ol className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-6">
             {implementacion.fases.items.map((fase, index) => (
-              <li key={fase.title} className="relative pl-8 md:pl-0">
+              <li key={fase.title} className="relative">
                 <div className="flex items-center gap-3 md:flex-col md:items-start md:gap-0">
                   <span className="text-brand-blue font-mono text-sm font-semibold tabular-nums">
                     {String(index + 1).padStart(2, "0")}
