@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 
 import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
+import { MediaSlot } from "@/components/brand/media-slot"
 import { Reveal } from "@/components/brand/reveal"
 import { Section } from "@/components/brand/section"
 import { ContactForm } from "@/components/sections/contact-form"
@@ -34,6 +35,7 @@ function ContactoPage() {
 
           <Reveal delay={0.1} className="lg:col-span-5">
             <div className="border-border bg-card flex flex-col gap-8 rounded-2xl border p-8">
+              <MediaSlot label="Samuel Acosta" aspect="4/5" tone="light" />
               <div>
                 <h2 className="font-display text-lg font-bold">Contacto comercial</h2>
                 <p className="text-muted-foreground mt-2">Samuel Acosta · Fundador</p>

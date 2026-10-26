@@ -1,19 +1,18 @@
 import Link from "next/link"
-import { ArrowRightIcon, Building2, Landmark } from "lucide-react"
+import { ArrowRightIcon } from "lucide-react"
 
 import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
 import { Reveal } from "@/components/brand/reveal"
 import { Section } from "@/components/brand/section"
 import { HOME } from "@/content/home"
-
-/** Un icono lucide fijo por panel, en el mismo orden que `HOME.paraQuien.panels`. */
-const PANEL_ICONS = [Building2, Landmark] as const
+import { cn } from "@/lib/utils"
 
 /**
- * Para quién: capítulo claro con dos paneles asimétricos en contraste de
- * pareja B2B/B2G — Empresas en blanco, Sector público en midnight — para que
- * cada audiencia se reconozca de un vistazo.
+ * Para quién: capítulo claro con dos paneles en contraste de pareja B2B/B2G —
+ * Empresas en blanco, Sector público en midnight — para que cada audiencia se
+ * reconozca de un vistazo. El kicker mono (B2B/B2G) reemplaza al icono: dice
+ * más con menos.
  */
 function ParaQuien() {
   return (
@@ -28,7 +27,6 @@ function ParaQuien() {
 
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-12">
           {HOME.paraQuien.panels.map((panel, index) => {
-            const Icon = PANEL_ICONS[index]
             const isPublicSector = index === 1
             const cta = "cta" in panel ? panel.cta : undefined
 
@@ -41,9 +39,16 @@ function ParaQuien() {
                       : "h-full rounded-2xl border border-[var(--brand-timberwolf)] bg-white p-10"
                   }
                 >
-                  <div className="bg-brand-blue/15 inline-flex size-12 items-center justify-center rounded-full">
-                    <Icon aria-hidden className="text-brand-blue size-6" />
-                  </div>
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-full border px-3 py-1 font-mono text-[11px] tracking-[0.18em] uppercase",
+                      isPublicSector
+                        ? "text-brand-smoke/80 border-white/25"
+                        : "text-brand-ink/70 border-[var(--brand-timberwolf)]"
+                    )}
+                  >
+                    {panel.kicker}
+                  </span>
                   <h3 className="font-display mt-6 text-2xl font-bold">{panel.title}</h3>
                   <p className="text-muted-foreground mt-3 max-w-[48ch] text-base leading-relaxed">
                     {panel.text}

@@ -1,18 +1,14 @@
-import { Clock3, FileCheck2, Library, ShieldCheck } from "lucide-react"
-
 import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
 import { Reveal } from "@/components/brand/reveal"
 import { Section } from "@/components/brand/section"
 import { HOME } from "@/content/home"
 
-/** Un icono lucide fijo por beneficio, en el mismo orden que `HOME.resultados.benefits`. */
-const BENEFIT_ICONS = [Clock3, Library, FileCheck2, ShieldCheck] as const
-
 /**
- * Resultados: capítulo claro con grid 2×2 (1 col en mobile) de tarjetas sin
- * borde — solo fondo blanco y sombra sutil — con chips de icono más livianos
- * que los de El reto, para distinguir "beneficio" de "problema".
+ * Resultados: capítulo claro, tipográfico. Cuatro beneficios en retícula de
+ * dos columnas, cada uno abierto por una regla corta en Blue Green; sin
+ * tarjetas, sombras ni iconos, para distinguirse de El reto y dejar que el
+ * texto cargue el peso.
  */
 function Resultados() {
   return (
@@ -25,23 +21,16 @@ function Resultados() {
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
-          {HOME.resultados.benefits.map((benefit, index) => {
-            const Icon = BENEFIT_ICONS[index]
-            return (
-              <Reveal key={benefit.title} delay={index * 0.06}>
-                <article className="h-full rounded-2xl bg-white p-7 shadow-xs transition-transform duration-200 ease-out hover:-translate-y-0.5">
-                  <div className="bg-brand-blue/5 inline-flex size-11 items-center justify-center rounded-full">
-                    <Icon aria-hidden className="text-brand-blue size-5" />
-                  </div>
-                  <h3 className="font-display mt-5 text-xl font-bold">{benefit.title}</h3>
-                  <p className="text-muted-foreground mt-2 max-w-[42ch] text-base leading-relaxed">
-                    {benefit.text}
-                  </p>
-                </article>
-              </Reveal>
-            )
-          })}
+        <div className="mt-14 grid grid-cols-1 gap-x-14 gap-y-12 md:grid-cols-2">
+          {HOME.resultados.benefits.map((benefit, index) => (
+            <Reveal key={benefit.title} delay={index * 0.06}>
+              <span aria-hidden className="bg-brand-blue block h-0.5 w-10" />
+              <h3 className="font-display mt-5 text-xl font-bold">{benefit.title}</h3>
+              <p className="text-muted-foreground mt-2 max-w-[46ch] text-base leading-relaxed">
+                {benefit.text}
+              </p>
+            </Reveal>
+          ))}
         </div>
       </Container>
     </Section>

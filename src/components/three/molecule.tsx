@@ -79,22 +79,24 @@ function MoleculeScene({ reduce }: { reduce: boolean }) {
 
   return (
     <>
-      <ambientLight intensity={0.4} />
-      <directionalLight color="#00A0D8" intensity={2} position={[3, 2, 4]} />
+      <ambientLight intensity={0.35} />
+      {/* Hemisferio cielo-azul / suelo-midnight: envuelve la esfera en el degradé de marca. */}
+      <hemisphereLight args={["#00A0D8", "#01242C", 0.8]} />
+      <directionalLight color="#00A0D8" intensity={2.6} position={[3, 2, 4]} />
       {/*
-       * decay 0 conserva la intensidad 0.35 del spec con las unidades físicas
+       * decay 0 conserva la intensidad del spec con las unidades físicas
        * de three (con decay 2 la atenuación a ~5 unidades la haría invisible).
        */}
-      <pointLight color="#F0801E" intensity={0.35} decay={0} position={[-4, -2, -2]} />
+      <pointLight color="#F0801E" intensity={0.45} decay={0} position={[-4, -2, -2]} />
 
       <group ref={tiltRef}>
         <group ref={spinRef}>
           <Sphere args={[1.4, 96, 96]} position={[0.1, 0.1, 0]}>
             <MeshDistortMaterial
-              color="#00546B"
+              color="#0B6B8C"
               distort={reduce ? 0 : 0.42}
               speed={reduce ? 0 : 1.6}
-              roughness={0.18}
+              roughness={0.32}
               metalness={0.1}
             />
           </Sphere>
@@ -105,10 +107,10 @@ function MoleculeScene({ reduce }: { reduce: boolean }) {
           position={[BLOB_ANCHOR.x, BLOB_ANCHOR.y, BLOB_ANCHOR.z]}
         >
           <MeshDistortMaterial
-            color="#00607A"
+            color="#0A6080"
             distort={reduce ? 0 : 0.3}
             speed={reduce ? 0 : 1.6}
-            roughness={0.22}
+            roughness={0.3}
             metalness={0.1}
             transparent
             opacity={0.85}

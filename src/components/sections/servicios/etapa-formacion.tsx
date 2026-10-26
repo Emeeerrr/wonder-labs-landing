@@ -1,5 +1,6 @@
 import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
+import { MediaSlot } from "@/components/brand/media-slot"
 import { Reveal } from "@/components/brand/reveal"
 import { Section } from "@/components/brand/section"
 import { SERVICIOS } from "@/content/servicios"
@@ -31,6 +32,15 @@ function EtapaFormacion() {
           <p className="text-muted-foreground mt-4 max-w-[62ch] text-sm leading-relaxed">
             {formacion.herramientas}
           </p>
+        </Reveal>
+
+        <Reveal delay={0.06} className="mt-12">
+          <MediaSlot
+            label="Programa Equipos · Sesión presencial"
+            aspect="16/9"
+            tone="dark"
+            className="md:max-w-[82%]"
+          />
         </Reveal>
 
         {/* Programa Liderazgo */}
