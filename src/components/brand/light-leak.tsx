@@ -83,7 +83,12 @@ out vec4 outColor;
 
 // Anclas relativas a los bordes, lejos del texto (x en [0, aspect]; y crece hacia arriba).
 vec2 leakAnchor(int i, float aspect) {
-  if (i == 0) return vec2(max(aspect - 0.16, aspect * 0.84), 0.88); // esquina superior derecha; en pantallas angostas, 84% del ancho
+  if (i == 0) {
+    // Esquina superior derecha. En pantallas angostas el H1 ocupa todo el ancho:
+    // el leak se corre al 84% y sube fuera de cuadro para no tocarlo.
+    float y0 = mix(1.06, 0.88, smoothstep(0.6, 1.0, aspect));
+    return vec2(max(aspect - 0.16, aspect * 0.84), y0);
+  }
   if (i == 1) return vec2(aspect * 0.42, 1.10); // derrame desde el borde superior (centro fuera de cuadro)
   return vec2(aspect + 0.10, 0.34); // derrame desde el borde derecho
 }
