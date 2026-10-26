@@ -43,8 +43,8 @@ function ServiciosSubnav() {
 function ServiciosHero() {
   return (
     <>
-      <section className="chapter-dark relative overflow-hidden bg-[linear-gradient(160deg,var(--brand-midnight-deep),var(--brand-midnight))] py-24">
-        {/* Light leak tenue; sin JS queda el degradé del fondo como piso sólido. */}
+      <section className="chapter-dark relative overflow-hidden py-24 [--chapter-from:var(--brand-midnight-deep)]">
+        {/* Light leak tenue; sin JS queda el piso sólido midnight-deep. */}
         <div aria-hidden className="absolute inset-0">
           <LightLeakCanvas
             className="size-full"

@@ -6,12 +6,12 @@ import { Section } from "@/components/brand/section"
 import { HOME } from "@/content/home"
 
 /* Cada etapa enlaza a su sección en /servicios (ids de etapa-*.tsx). */
-const ETAPA_ANCLA: Record<string, string> = {
+const ETAPA_ANCLA = {
   "01": "diagnostico",
   "02": "formacion",
   "03": "implementacion",
   "04": "acompanamiento",
-}
+} as const satisfies Record<"01" | "02" | "03" | "04", string>
 
 /**
  * La ruta: abre el acto claro como una tabla de documento. Las cuatro etapas

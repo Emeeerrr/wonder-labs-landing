@@ -12,7 +12,10 @@ import { SERVICIOS } from "@/content/servicios"
  */
 function ServiciosCtaFinal() {
   return (
-    <Section tone="dark" className="relative overflow-hidden">
+    <Section
+      tone="dark"
+      className="relative overflow-hidden [--chapter-from:var(--brand-midnight-deep)]"
+    >
       {/* Light leak de película; sin JS queda el degradé chapter-dark de la sección. */}
       <div aria-hidden className="absolute inset-0">
         <LightLeakCanvas

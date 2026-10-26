@@ -78,8 +78,10 @@ function HeaderBar({ transparentAtTop }: { transparentAtTop: boolean }) {
               href={item.href}
               aria-current={isActive(pathname, item.href) ? "page" : undefined}
               className={cn(
-                "hover:text-brand-blue inline-flex h-11 items-center text-sm transition-colors duration-200 ease-out",
-                isActive(pathname, item.href) ? "text-brand-blue" : "text-brand-smoke"
+                "hover:text-brand-blue text-brand-smoke inline-flex h-11 items-center text-sm transition-colors duration-200 ease-out",
+                // Estado activo: subrayado azul, el texto conserva el contraste AA del smoke.
+                isActive(pathname, item.href) &&
+                  "decoration-brand-blue underline decoration-2 underline-offset-[6px]"
               )}
             >
               {item.label}

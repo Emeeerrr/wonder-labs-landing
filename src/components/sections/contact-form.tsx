@@ -139,6 +139,8 @@ function ContactForm() {
       }
 
       const onInvalid = (fieldErrors: FieldErrors<ContactInput>) => {
+        // Un reintento inválido no debe dejar la alerta del envío anterior.
+        setSubmitError(false)
         focusFirstInvalidField(Object.keys(fieldErrors))
       }
 
@@ -468,7 +470,7 @@ function ContactForm() {
 
       {submitError && (
         <p role="alert" className="text-destructive text-sm font-normal">
-          Inténtalo de nuevo. Si sigue fallando, escríbenos.
+          No pudimos enviar tu solicitud. Inténtalo de nuevo. Si sigue fallando, escríbenos.
         </p>
       )}
 

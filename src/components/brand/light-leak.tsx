@@ -275,12 +275,15 @@ function LightLeak({
     const canvas = document.createElement("canvas")
     canvas.setAttribute("aria-hidden", "true")
     canvas.className = "absolute inset-0 size-full"
-    // Sin depth buffer: un triángulo de pantalla completa no lo usa.
+    // Sin depth buffer: un triángulo de pantalla completa no lo usa. Con
+    // failIfMajorPerformanceCaveat, un renderizador por software (SwiftShader,
+    // GPU en lista negra) no crea contexto y queda el fallback CSS.
     const gl = canvas.getContext("webgl2", {
       antialias: false,
       alpha: false,
       depth: false,
       powerPreference: "low-power",
+      failIfMajorPerformanceCaveat: true,
     })
     const program = gl && createProgram(gl)
     if (!gl || !program) {
@@ -441,6 +444,7 @@ function LightLeak({
     <div
       ref={rootRef}
       data-slot="light-leak"
+      data-state="paused"
       className={cn("relative overflow-hidden", className)}
       style={{ background: fallback ?? fallbackBackground(leak, background) }}
     >
