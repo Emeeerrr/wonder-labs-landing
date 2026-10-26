@@ -57,6 +57,20 @@ docker compose up web
 docker compose --profile dev up dev
 ```
 
+## ¿A dónde llegan los leads del formulario?
+
+El server action de `/contacto` (`src/lib/actions/contact.ts`) hace dos cosas con cada envío válido:
+
+1. **Siempre** lo escribe en los logs del servidor (`[contacto] nuevo lead ...`). En Vercel se ven en la pestaña **Logs** del proyecto.
+2. **Si hay correo configurado**, lo envía por [Resend](https://resend.com) al buzón definido. Para activarlo, copia `.env.example` a `.env.local` (o configura las variables en Vercel) con:
+
+```bash
+RESEND_API_KEY=re_xxxx          # API key de Resend
+CONTACT_LEADS_EMAIL=correo@...  # buzón que recibe los leads
+```
+
+Sin esas variables el formulario funciona igual, pero el lead queda solo en los logs. Cuando exista dominio propio, cambiar el remitente `onboarding@resend.dev` por uno del dominio verificado en Resend. Si el equipo prefiere CRM en lugar de correo, el punto de integración es `deliverLeadByEmail` en ese mismo archivo.
+
 ## Deploy en Vercel
 
 El repo trae `vercel.json` (`framework: nextjs`), así que cualquiera de las dos vías funciona sin configuración adicional:
@@ -102,9 +116,9 @@ Lo siguiente está marcado con comentarios `TODO(wonderlabs)` en el código y de
 - **Precios**: el precio del diagnóstico de madurez (`/servicios`) está sin confirmar.
 - **Legales**: `/legal/privacidad` y `/legal/terminos` necesitan revisión de un abogado antes de publicarse, además de razón social y NIT.
 - **Contratación pública**: modalidades (licitación, contratación directa, convenios) pendientes de detallar en la FAQ de `/servicios` una vez estén confirmadas.
-- **Lead routing**: el server action de contacto (`src/lib/actions/contact.ts`) no está conectado a un destino real (correo/CRM); hoy solo valida y responde.
+- **Lead routing**: definir el buzón definitivo de leads (y si va CRM además de correo). El envío por Resend ya está implementado pero inactivo hasta configurar `RESEND_API_KEY` y `CONTACT_LEADS_EMAIL` (ver "¿A dónde llegan los leads?").
 - **Plazo de respuesta**: el mensaje de confirmación del formulario dice "1 día hábil"; confirmar con el equipo comercial.
 - **Redes sociales**: el footer no tiene enlaces a redes; agregar cuando existan.
 - **SVGs de marca**: el isotipo (`src/components/brand/logo.tsx`, variante `mark`) y el favicon (`src/app/icon.svg`) son placeholders geométricos (tres círculos con degradé midnight→blue); reemplazar por los SVG oficiales del Brand Kit cuando estén disponibles.
 - **Dominio**: `SITE.url` en `src/content/site.ts` es un placeholder (`https://wonderlabs.example`); actualizar con el dominio real antes de publicar (afecta metadata, sitemap y robots).
-- **Fotos de equipo**: no hay fotografías reales del equipo en el sitio; pendiente de sesión de fotos.
+- **Fotos y video**: los marcos `MediaSlot` (home, `/servicios` y `/contacto`) son espacios reservados que nombran la pieza que falta: sesión de formación en vivo, versión pública del video de visión, foto del equipo y retrato de Samuel. Al tener el material, reemplazar cada `MediaSlot` por `next/image` o el video embebido con la misma proporción.
