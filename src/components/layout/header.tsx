@@ -5,7 +5,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { MenuIcon, XIcon } from "lucide-react"
 
-import { ColombiaClock } from "@/components/brand/clock"
 import { Container } from "@/components/brand/container"
 import { Logo } from "@/components/brand/logo"
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
@@ -72,7 +71,6 @@ function HeaderBar({ transparentAtTop }: { transparentAtTop: boolean }) {
               {item.label}
             </Link>
           ))}
-          <ColombiaClock className="text-brand-smoke/60 hidden lg:block" />
           <Link href={SITE.cta.href} className={ctaClassName}>
             {SITE.cta.label}
           </Link>
