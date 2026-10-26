@@ -20,6 +20,15 @@ import { cn } from "@/lib/utils"
 const ctaClassName =
   "inline-flex h-11 items-center justify-center rounded-full bg-brand-tangerine px-5 text-sm font-semibold text-brand-midnight-deep transition-colors duration-200 ease-out hover:bg-[color-mix(in_srgb,var(--brand-tangerine)_92%,black)]"
 
+/*
+ * Ruta activa: solo hrefs sin hash (un enlace con ancla no marca la página),
+ * por coincidencia exacta o como raíz de sección (/servicios/...).
+ */
+function isActive(pathname: string, href: string) {
+  if (href.includes("#")) return false
+  return pathname === href || (href !== "/" && pathname.startsWith(`${href}/`))
+}
+
 /**
  * Header global. En `/` arranca transparente (el hero oscuro queda detrás) y
  * pasa a glass-midnight tras 24px de scroll; en el resto de rutas es
@@ -31,6 +40,7 @@ function Header() {
 }
 
 function HeaderBar({ transparentAtTop }: { transparentAtTop: boolean }) {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = React.useState(false)
 
   React.useEffect(() => {
@@ -66,7 +76,11 @@ function HeaderBar({ transparentAtTop }: { transparentAtTop: boolean }) {
             <Link
               key={item.href}
               href={item.href}
-              className="text-brand-smoke hover:text-brand-blue inline-flex h-11 items-center text-sm transition-colors duration-200 ease-out"
+              aria-current={isActive(pathname, item.href) ? "page" : undefined}
+              className={cn(
+                "hover:text-brand-blue inline-flex h-11 items-center text-sm transition-colors duration-200 ease-out",
+                isActive(pathname, item.href) ? "text-brand-blue" : "text-brand-smoke"
+              )}
             >
               {item.label}
             </Link>
@@ -113,7 +127,11 @@ function HeaderBar({ transparentAtTop }: { transparentAtTop: boolean }) {
                     key={item.href}
                     render={<Link href={item.href} />}
                     nativeButton={false}
-                    className="font-display text-brand-smoke hover:text-brand-blue inline-flex min-h-14 items-center text-3xl font-medium transition-colors duration-200 ease-out"
+                    aria-current={isActive(pathname, item.href) ? "page" : undefined}
+                    className={cn(
+                      "font-display hover:text-brand-blue inline-flex min-h-14 items-center text-3xl font-medium transition-colors duration-200 ease-out",
+                      isActive(pathname, item.href) ? "text-brand-blue" : "text-brand-smoke"
+                    )}
                   >
                     {item.label}
                   </SheetClose>

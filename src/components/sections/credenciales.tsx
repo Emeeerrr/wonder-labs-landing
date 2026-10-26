@@ -23,7 +23,7 @@ function Credenciales() {
           <div className="flex flex-col gap-12 md:col-span-6">
             {HOME.credenciales.stats.map((stat) => (
               <div key={stat.label}>
-                <span className="font-display block text-[clamp(3.25rem,7vw,5rem)] leading-none font-medium tabular-nums">
+                <span className="font-display block text-[clamp(3.25rem,7vw,5rem)] leading-none font-medium italic tabular-nums">
                   {stat.prefix}
                   {stat.value}
                 </span>
