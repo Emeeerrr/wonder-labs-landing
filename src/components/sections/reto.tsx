@@ -11,7 +11,7 @@ import { HOME } from "@/content/home"
  */
 function Reto() {
   return (
-    <Section tone="dark" className="pt-10 md:pt-12">
+    <Section tone="dark" className="pt-10 [--chapter-from:var(--brand-midnight-deep)] md:pt-12">
       <Container>
         <div className="max-w-[720px]">
           <Eyebrow>{HOME.reto.eyebrow}</Eyebrow>

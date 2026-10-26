@@ -2,18 +2,31 @@ import Link from "next/link"
 
 import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
+import { LightLeakCanvas } from "@/components/brand/light-leak-canvas"
 import { Section } from "@/components/brand/section"
 import { HOME } from "@/content/home"
 
 /**
- * CTA final: tercer acto, oscuro y quieto. Titular en serif, el texto de la
- * reunión inicial y un solo botón tangerine — sin glow radial ni adornos:
- * el cierre baja la voz en lugar de subirla.
+ * CTA final: tercer acto, oscuro. Titular en serif, el texto de la reunión
+ * inicial y un solo botón tangerine. El light leak ambiental del fondo hace de
+ * contrapunto del hero; el texto queda por encima y sin adornos.
  */
 function CtaFinal() {
   return (
-    <Section tone="dark">
-      <Container>
+    <Section tone="dark" className="relative overflow-hidden">
+      {/* Light leak de película; sin JS queda el degradé chapter-dark de la sección. */}
+      <div aria-hidden className="absolute inset-0">
+        <LightLeakCanvas
+          className="size-full"
+          intensity={0.8}
+          grain={0.3}
+          speed={0.6}
+          leaks={2}
+          quality={0.6}
+        />
+      </div>
+
+      <Container className="relative z-10">
         <div className="max-w-[760px]">
           <Eyebrow>{HOME.ctaFinal.eyebrow}</Eyebrow>
           <h2 className="font-display mt-4 text-[clamp(2.25rem,4.6vw,3.5rem)] leading-[1.1] font-medium">
