@@ -58,6 +58,7 @@ function Hero() {
             grain={0.3}
             speed={0.7}
             leaks={2}
+            quality={0.6}
           />
         </div>
 

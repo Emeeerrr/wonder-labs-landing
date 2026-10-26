@@ -81,8 +81,15 @@ uniform int u_leaks;
 
 out vec4 outColor;
 
-// Anclas a la derecha, lejos del texto (x en unidades de aspecto; y crece hacia arriba).
-const vec2 ANCHORS[3] = vec2[3](vec2(0.88, 0.78), vec2(0.70, 0.12), vec2(1.02, 0.35));
+// Anclas relativas a los bordes, lejos del texto (x en [0, aspect]; y crece hacia arriba).
+vec2 leakAnchor(int i, float aspect) {
+  if (i == 0) return vec2(aspect - 0.16, 0.88); // esquina superior derecha
+  if (i == 1) return vec2(aspect * 0.42, 1.10); // derrame desde el borde superior (centro fuera de cuadro)
+  return vec2(aspect + 0.10, 0.34); // derrame desde el borde derecho
+}
+
+// Estiramiento de cada streak sobre (p - ancla).
+const vec2 STRETCH[3] = vec2[3](vec2(0.75, 1.7), vec2(0.6, 2.4), vec2(0.5, 1.6));
 
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
@@ -118,26 +125,28 @@ void main() {
   float t = u_time * u_speed;
 
   float field = 0.0;
-  float soft = 0.0;
   for (int i = 0; i < 3; i++) {
     if (i >= u_leaks) break;
     float fi = float(i);
-    vec2 anchor = ANCHORS[i] * vec2(aspect, 1.0);
-    anchor += 0.06 * vec2(sin(t * 0.21 + fi * 2.1), cos(t * 0.17 + fi * 1.3));
-    float d = length((p - anchor) * vec2(0.85, 1.55));
-    d += 0.22 * fbm(p * 2.6 + t * 0.05 + fi * 7.0) - 0.11;
-    // Igual a smoothstep(0.78, 0.0, d), que GLSL deja indefinido (edge0 >= edge1).
-    float f = 1.0 - smoothstep(0.0, 0.78, d);
+    vec2 anchor = leakAnchor(i, aspect);
+    anchor += 0.05 * vec2(sin(t * 0.21 + fi * 2.1), cos(t * 0.17 + fi * 1.3));
+    float d = length((p - anchor) * STRETCH[i]);
+    d += 0.16 * fbm(p * 2.6 + t * 0.05 + fi * 7.0) - 0.08;
+    // Igual a smoothstep(0.52, 0.0, d), que GLSL deja indefinido (edge0 >= edge1).
+    float f = 1.0 - smoothstep(0.0, 0.52, d);
     field = max(field, f);
-    soft += f * 0.5;
   }
+  // El texto vive a la izquierda: la luz se apaga antes de llegar a esa zona.
+  field *= smoothstep(0.12, 0.55, uv.x);
 
-  vec3 col = u_bg + u_bg * 0.35 * fbm(p * 1.4 - t * 0.02);
-  col = mix(col, u_leak, smoothstep(0.08, 0.55, field));
-  col = mix(col, u_glow, smoothstep(0.42, 0.8, field));
-  col = mix(col, u_hot, smoothstep(0.78, 0.98, field));
-  col = u_bg + (col - u_bg) * u_intensity;
-  col = 1.0 - exp(-col * 1.4);
+  vec3 add = vec3(0.0);
+  add = mix(add, u_leak, smoothstep(0.08, 0.55, field));
+  add = mix(add, u_glow, smoothstep(0.42, 0.8, field));
+  add = mix(add, u_hot, smoothstep(0.78, 0.98, field));
+  add *= u_intensity;
+  add = 1.0 - exp(-add * 1.4);
+  // Screen: donde no hay luz queda exactamente u_bg.
+  vec3 col = 1.0 - (1.0 - u_bg) * (1.0 - add);
 
   float g = (hash(gl_FragCoord.xy + fract(t) * 61.0) - 0.5) * u_grain * 0.10;
   col += g;
