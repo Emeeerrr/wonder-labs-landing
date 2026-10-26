@@ -49,8 +49,8 @@ function Hero() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <section className="chapter-dark relative overflow-hidden bg-[linear-gradient(170deg,var(--brand-midnight-deep),var(--brand-midnight))]">
-        {/* Light leak de película; sin JS ni WebGL2 queda el degradé de la sección. */}
+      <section className="chapter-dark bg-brand-midnight-deep relative overflow-hidden bg-none">
+        {/* Light leak de película; sin JS queda el piso midnight-deep de la sección. */}
         <div aria-hidden className="absolute inset-0">
           <LightLeakCanvas
             className="size-full"
