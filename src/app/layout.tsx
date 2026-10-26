@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Bitter, JetBrains_Mono, Manrope } from "next/font/google"
 import "./globals.css"
 
@@ -41,6 +41,9 @@ export const metadata: Metadata = {
     description: SITE.description,
   },
 }
+
+// Color de la barra del navegador: midnight-deep, el piso oscuro de la marca.
+export const viewport: Viewport = { themeColor: "#01242C" }
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

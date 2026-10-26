@@ -17,7 +17,20 @@ function Footer() {
     // El footer usa chapter-dark con el degradé colapsado a midnight-deep sólido.
     <footer className="chapter-dark [--chapter-from:var(--brand-midnight-deep)]">
       <Container className="py-16 md:py-20">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
+        {/* Cierre: wordmark decorativo (el Logo enlazado para navegar está abajo) y tagline. */}
+        <div className="flex flex-col gap-6 border-b border-white/10 pb-12 md:pb-16">
+          <p
+            aria-hidden
+            className="font-display text-[clamp(2.5rem,8vw,6rem)] leading-none font-medium"
+          >
+            Wonder Labs<span className="text-brand-blue">.</span>
+          </p>
+          <p className="text-muted-foreground max-w-xs text-sm leading-relaxed md:self-end md:text-right">
+            La unión entre el talento humano y el poder tecnológico.
+          </p>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-12">
           <div className="flex flex-col gap-4 md:col-span-5">
             <Link
               href="/"
@@ -26,9 +39,6 @@ function Footer() {
             >
               <Logo variant="wordmark" />
             </Link>
-            <p className="text-muted-foreground max-w-xs text-sm leading-relaxed">
-              La unión entre el talento humano y el poder tecnológico.
-            </p>
           </div>
 
           <nav aria-label="Pie de página" className="flex flex-col gap-8 md:col-span-4">
@@ -64,7 +74,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-border mt-16 flex flex-col gap-2 border-t pt-6 md:flex-row md:items-center md:justify-between">
+        <div className="mt-16 flex flex-col gap-2 border-t border-white/10 pt-6 md:flex-row md:items-center md:justify-between">
           <p className="text-muted-foreground text-[11px]">
             © 2026 WonderLabs. Todos los derechos reservados.
           </p>
