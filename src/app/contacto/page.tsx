@@ -20,7 +20,7 @@ function ContactoPage() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-12">
           <Reveal className="lg:col-span-7">
             <Eyebrow>Contacto</Eyebrow>
-            <h1 className="font-display mt-4 text-[clamp(2.25rem,4.5vw,3.25rem)] font-extrabold tracking-tight">
+            <h1 className="font-display mt-4 text-[clamp(2.25rem,4.5vw,3.25rem)] leading-[1.12] font-medium">
               Agenda la reunión inicial sin costo.
             </h1>
             <p className="text-muted-foreground mt-6 max-w-[56ch] text-lg">
@@ -37,14 +37,14 @@ function ContactoPage() {
             <div className="border-border bg-card flex flex-col gap-8 rounded-2xl border p-8">
               <MediaSlot label="Samuel Acosta" aspect="4/5" tone="light" />
               <div>
-                <h2 className="font-display text-lg font-bold">Contacto comercial</h2>
-                <p className="text-muted-foreground mt-2">Samuel Acosta · Fundador</p>
+                <h2 className="font-display text-lg font-medium">Contacto comercial</h2>
+                <p className="text-muted-foreground mt-2">Samuel Acosta, fundador</p>
                 {/* TODO(wonderlabs): teléfono y correo directos de contacto comercial */}
               </div>
 
               <div>
-                <h2 className="font-display text-lg font-bold">Dónde estamos</h2>
-                <p className="text-muted-foreground mt-2">Medellín · Bogotá · Colombia</p>
+                <h2 className="font-display text-lg font-medium">Dónde estamos</h2>
+                <p className="text-muted-foreground mt-2">Medellín y Bogotá, Colombia</p>
               </div>
 
               <div className="border-border border-t pt-6">

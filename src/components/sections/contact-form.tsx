@@ -142,7 +142,7 @@ function ContactForm() {
         role="status"
         className="border-border bg-card flex flex-col gap-3 rounded-2xl border p-8 text-center md:p-10"
       >
-        <p className="font-display text-xl font-bold md:text-2xl">
+        <p className="font-display text-xl font-medium md:text-2xl">
           ¡Gracias! Te escribiremos en 1 día hábil para agendar la reunión.
         </p>
         {/* TODO(wonderlabs): confirmar el plazo real de respuesta con el equipo comercial — doc §7 */}

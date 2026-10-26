@@ -83,10 +83,11 @@ export const HOME = {
   },
   /** Espacios reservados para material real (doc §8.5: aún sin fotos ni video público). */
   media: {
-    items: [
-      { kind: "foto", label: "Sesión de formación en vivo", aspect: "4/5" },
-      { kind: "video", label: "La visión de WonderLabs", aspect: "16/10" },
-      { kind: "foto", label: "Equipo WonderLabs", aspect: "3/4" },
+    /** Ancla del hero, como el material de producto de las referencias. */
+    video: { label: "La visión de WonderLabs", aspect: "16/9" },
+    fotos: [
+      { label: "Sesión de formación en vivo", aspect: "5/4" },
+      { label: "Equipo WonderLabs", aspect: "4/5" },
     ],
   },
   credenciales: {

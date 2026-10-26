@@ -22,7 +22,7 @@ function ServiciosSubnav() {
             <li key={item.href} className="shrink-0">
               <a
                 href={item.href}
-                className="text-muted-foreground hover:text-brand-blue inline-flex min-h-11 items-center font-mono text-xs tracking-[0.1em] uppercase transition-colors duration-200 ease-out"
+                className="text-muted-foreground hover:text-brand-blue inline-flex min-h-11 items-center text-xs font-semibold transition-colors duration-200 ease-out"
               >
                 {item.label}
               </a>
@@ -46,7 +46,7 @@ function ServiciosHero() {
         <Container>
           <Reveal>
             <Eyebrow>{SERVICIOS.hero.eyebrow}</Eyebrow>
-            <h1 className="font-display mt-4 max-w-[26ch] text-[clamp(2.5rem,6vw,4rem)] font-extrabold tracking-tight">
+            <h1 className="font-display mt-4 max-w-[26ch] text-[clamp(2.5rem,6vw,4rem)] leading-[1.12] font-medium">
               {SERVICIOS.hero.title}
             </h1>
             <p className="text-muted-foreground mt-6 max-w-[56ch] text-lg md:text-xl">

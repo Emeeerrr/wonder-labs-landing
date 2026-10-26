@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { MenuIcon, XIcon } from "lucide-react"
 
+import { ColombiaClock } from "@/components/brand/clock"
 import { Container } from "@/components/brand/container"
 import { Logo } from "@/components/brand/logo"
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
@@ -66,11 +67,12 @@ function HeaderBar({ transparentAtTop }: { transparentAtTop: boolean }) {
             <Link
               key={item.href}
               href={item.href}
-              className="text-brand-smoke after:bg-brand-blue hover:text-brand-blue relative inline-flex h-11 items-center text-sm transition-colors duration-200 ease-out after:absolute after:inset-x-0 after:bottom-2.5 after:h-px after:origin-left after:scale-x-0 after:transition-transform after:duration-200 after:ease-out hover:after:scale-x-100"
+              className="text-brand-smoke hover:text-brand-blue inline-flex h-11 items-center text-sm transition-colors duration-200 ease-out"
             >
               {item.label}
             </Link>
           ))}
+          <ColombiaClock className="text-brand-smoke/60 hidden lg:block" />
           <Link href={SITE.cta.href} className={ctaClassName}>
             {SITE.cta.label}
           </Link>

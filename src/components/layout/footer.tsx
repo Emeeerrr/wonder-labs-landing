@@ -53,11 +53,11 @@ function Footer() {
           </nav>
 
           <div className="text-muted-foreground flex flex-col gap-3 text-sm md:col-span-3">
-            <p>Medellín · Bogotá · Colombia</p>
+            <p>Medellín y Bogotá, Colombia</p>
             <p>
               Contacto comercial:
               <br />
-              Samuel Acosta · Fundador
+              Samuel Acosta, fundador
             </p>
             {/* TODO(wonderlabs): NIT y razón social */}
             {/* TODO(wonderlabs): enlaces a redes sociales */}
