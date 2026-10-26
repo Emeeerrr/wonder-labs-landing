@@ -56,15 +56,17 @@ const selectControlClassName = "data-[size=default]:h-11 text-base md:text-base"
 
 /**
  * Formulario de /contacto. react-hook-form + zodResolver validan en el
- * cliente (modo `onBlur`, re-valida en submit); el server action
+ * cliente (modo `onTouched`: valida al salir de cada campo y luego en cada
+ * cambio; `shouldFocusError` queda activo por defecto); el server action
  * `submitContact` vuelve a validar con el mismo esquema. Al enviar con éxito,
- * el formulario se reemplaza por un panel de confirmación.
+ * el formulario se reemplaza por un panel de confirmación que recibe el foco.
  */
 function ContactForm() {
   const [isPending, setIsPending] = React.useState(false)
   const [isSubmitted, setIsSubmitted] = React.useState(false)
   const [submitError, setSubmitError] = React.useState(false)
   const formRef = React.useRef<HTMLFormElement>(null)
+  const successRef = React.useRef<HTMLDivElement>(null)
 
   const {
     register,
@@ -74,7 +76,7 @@ function ContactForm() {
     formState: { errors },
   } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
-    mode: "onBlur",
+    mode: "onTouched",
     defaultValues: DEFAULT_VALUES,
   })
 
@@ -101,6 +103,9 @@ function ContactForm() {
 
   const onSubmit = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
+      // Evita un segundo envío mientras el primero sigue en vuelo.
+      if (isPending) return
+
       const onValid = async (data: ContactInput) => {
         setIsPending(true)
         setSubmitError(false)
@@ -108,13 +113,19 @@ function ContactForm() {
           const result = await submitContact(data)
 
           if (!result.ok) {
-            if (result.errors) {
-              for (const [field, messages] of Object.entries(result.errors)) {
-                if (messages?.[0]) {
-                  setError(field as keyof ContactInput, { type: "server", message: messages[0] })
-                }
+            // Errores de campo → bajo cada campo. Sin ninguno aplicable, es un
+            // fallo del servidor y nunca puede quedar en silencio.
+            const fieldNames: string[] = []
+            for (const [field, messages] of Object.entries(result.errors ?? {})) {
+              if (messages?.[0]) {
+                setError(field as keyof ContactInput, { type: "server", message: messages[0] })
+                fieldNames.push(field)
               }
-              focusFirstInvalidField(Object.keys(result.errors))
+            }
+            if (fieldNames.length > 0) {
+              focusFirstInvalidField(fieldNames)
+            } else {
+              setSubmitError(true)
             }
             return
           }
@@ -133,14 +144,22 @@ function ContactForm() {
 
       void handleSubmit(onValid, onInvalid)(event)
     },
-    [handleSubmit, setError, focusFirstInvalidField]
+    [handleSubmit, setError, focusFirstInvalidField, isPending]
   )
+
+  // El panel de éxito reemplaza al formulario: el foco se mueve a él para que
+  // el lector de pantalla lo anuncie y el foco no quede en un nodo desmontado.
+  React.useEffect(() => {
+    if (isSubmitted) successRef.current?.focus()
+  }, [isSubmitted])
 
   if (isSubmitted) {
     return (
       <div
+        ref={successRef}
         role="status"
-        className="border-border bg-card flex flex-col gap-3 rounded-2xl border p-8 text-center md:p-10"
+        tabIndex={-1}
+        className="border-border bg-card flex flex-col gap-3 rounded-2xl border p-8 text-center outline-none md:p-10"
       >
         <p className="font-display text-xl font-medium md:text-2xl">
           ¡Gracias! Te escribiremos en 1 día hábil para agendar la reunión.
@@ -449,17 +468,17 @@ function ContactForm() {
 
       {submitError && (
         <p role="alert" className="text-destructive text-sm font-normal">
-          No pudimos enviar tu solicitud. Intenta de nuevo.
+          Inténtalo de nuevo. Si sigue fallando, escríbenos.
         </p>
       )}
 
       <button
         type="submit"
         disabled={isPending}
-        className="group bg-brand-tangerine text-brand-midnight-deep inline-flex h-12 min-h-11 w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold transition-colors duration-200 ease-out hover:bg-[color-mix(in_srgb,var(--brand-tangerine)_92%,black)] disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
+        className="group bg-brand-tangerine text-brand-midnight-deep inline-flex h-12 min-h-11 w-full items-center justify-center gap-2 rounded-full px-7 text-base font-semibold transition-colors duration-200 ease-out hover:bg-[color-mix(in_srgb,var(--brand-tangerine)_92%,black)] disabled:cursor-not-allowed disabled:opacity-60 md:w-auto md:min-w-48"
       >
         {isPending && <LoaderCircleIcon className="size-4 shrink-0 animate-spin" aria-hidden />}
-        Enviar solicitud
+        {isPending ? "Enviando..." : "Enviar solicitud"}
       </button>
     </form>
   )
