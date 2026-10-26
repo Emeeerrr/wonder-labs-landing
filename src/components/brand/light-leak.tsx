@@ -134,11 +134,16 @@ void main() {
     if (i >= u_leaks) break;
     float fi = float(i);
     vec2 anchor = leakAnchor(i, aspect);
-    anchor += 0.05 * vec2(sin(t * 0.21 + fi * 2.1), cos(t * 0.17 + fi * 1.3));
+    // Deriva visible (~15 s por vuelta). La vertical es menor: en móvil el
+    // ancla vive apenas fuera de cuadro y no debe bajar hasta el H1.
+    anchor += vec2(0.09 * sin(t * 0.42 + fi * 2.1), 0.05 * cos(t * 0.31 + fi * 1.3));
     float d = length((p - anchor) * STRETCH[i]);
-    d += 0.16 * fbm(p * 2.6 + t * 0.05 + fi * 7.0) - 0.08;
+    // El borde ondula y fluye: el campo de ruido se desplaza en diagonal.
+    d += 0.16 * fbm(p * 2.6 + vec2(t * 0.1, -t * 0.22) + fi * 7.0) - 0.08;
     // Igual a smoothstep(0.52, 0.0, d), que GLSL deja indefinido (edge0 >= edge1).
     float f = 1.0 - smoothstep(0.0, 0.52, d);
+    // Respiración de exposición: la luz sube y baja como colándose por una rendija.
+    f *= 0.82 + 0.18 * sin(t * 0.55 + fi * 2.7);
     field = max(field, f);
   }
   // El texto vive a la izquierda: la luz se apaga antes de llegar a esa zona.
