@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion, MotionConfig } from "motion/react"
 
 import { Container } from "@/components/brand/container"
+import { LightLeakCanvas } from "@/components/brand/light-leak-canvas"
 import { MediaSlot } from "@/components/brand/media-slot"
 import { HOME } from "@/content/home"
 import { useReducedMotionSafe } from "@/lib/use-reduced-motion-safe"
@@ -21,15 +22,13 @@ const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 const TITLE_LINES = ["Llevamos la IA", "de la promesa", "a la operación."] as const
 const ACCENT_LINE_INDEX = 2
 
-/** Grano sutil (feTurbulence inline, ≤3% de opacidad sobre el degradé). */
-const NOISE_TEXTURE = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
-
 /**
  * Hero: capítulo oscuro puramente tipográfico. El titular en Bitter 500 carga
  * la página — sin molécula 3D ni adornos — y el espacio reservado del video de
  * visión lo ancla, como el material real que tendrá que ocupar ese lugar.
- * La intro orquestada corre solo en la primera carga (≤1s); es la única
- * animación no disparada por el usuario en toda la página.
+ * La intro orquestada corre solo en la primera carga (≤1s); aparte del light
+ * leak ambiental del fondo, es la única animación no disparada por el usuario
+ * en toda la página.
  */
 function Hero() {
   const reduce = useReducedMotionSafe()
@@ -51,12 +50,16 @@ function Hero() {
   return (
     <MotionConfig reducedMotion="user">
       <section className="chapter-dark relative overflow-hidden bg-[linear-gradient(170deg,var(--brand-midnight-deep),var(--brand-midnight))]">
-        {/* Grano sutil sobre el degradé */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.025]"
-          style={{ backgroundImage: NOISE_TEXTURE }}
-        />
+        {/* Light leak de película; sin JS ni WebGL2 queda el degradé de la sección. */}
+        <div aria-hidden className="absolute inset-0">
+          <LightLeakCanvas
+            className="size-full"
+            intensity={0.55}
+            grain={0.3}
+            speed={0.7}
+            leaks={2}
+          />
+        </div>
 
         <Container className="relative z-10 pt-36 pb-16 md:pt-44 md:pb-20">
           {/* TODO(wonderlabs): titular opción A — confirmar con Samu (opciones B y C en el borrador §2.1) */}
