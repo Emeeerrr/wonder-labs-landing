@@ -1,5 +1,6 @@
 import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
+import { LightLeakCanvas } from "@/components/brand/light-leak-canvas"
 import { Reveal } from "@/components/brand/reveal"
 import { SERVICIOS } from "@/content/servicios"
 
@@ -42,8 +43,20 @@ function ServiciosSubnav() {
 function ServiciosHero() {
   return (
     <>
-      <section className="chapter-dark bg-[linear-gradient(160deg,var(--brand-midnight-deep),var(--brand-midnight))] py-24">
-        <Container>
+      <section className="chapter-dark relative overflow-hidden bg-[linear-gradient(160deg,var(--brand-midnight-deep),var(--brand-midnight))] py-24">
+        {/* Light leak tenue; sin JS queda el degradé del fondo como piso sólido. */}
+        <div aria-hidden className="absolute inset-0">
+          <LightLeakCanvas
+            className="size-full"
+            intensity={0.45}
+            grain={0.3}
+            speed={0.7}
+            leaks={1}
+            quality={0.6}
+          />
+        </div>
+
+        <Container className="relative z-10">
           <Reveal>
             <Eyebrow>{SERVICIOS.hero.eyebrow}</Eyebrow>
             <h1 className="font-display mt-4 max-w-[26ch] text-[clamp(2.5rem,6vw,4rem)] leading-[1.12] font-medium">
