@@ -21,20 +21,39 @@ const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
  */
 const TITLE_LINES = ["Llevamos la IA", "de la promesa", "a la operación."] as const
 
-/** Única palabra con énfasis: degradé blue→blue-light con text-clip. */
+/** Única palabra con énfasis: azul sólido con subrayado dibujado. */
 const ACCENT_WORD = "operación"
 
 /** Grano sutil (feTurbulence inline, ≤3% de opacidad sobre el degradé). */
 const NOISE_TEXTURE = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
 
-function renderTitleLine(line: string) {
+function renderTitleLine(line: string, reduce: boolean) {
   const index = line.indexOf(ACCENT_WORD)
   if (index === -1) return line
   return (
     <>
       {line.slice(0, index)}
-      <span className="from-brand-blue bg-linear-to-r to-[#7cd4f2] bg-clip-text text-transparent">
+      <span className="text-brand-blue relative inline-block">
         {ACCENT_WORD}
+        {/* Subrayado a trazo: se dibuja al final de la intro; estático con reduced-motion. */}
+        <svg
+          aria-hidden
+          viewBox="0 0 220 14"
+          preserveAspectRatio="none"
+          className="absolute inset-x-0 -bottom-[0.06em] h-[0.14em] w-full overflow-visible"
+        >
+          <motion.path
+            d="M4 10 C 64 3, 152 2, 216 8"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={6}
+            strokeLinecap="round"
+            className="opacity-50"
+            initial={reduce ? false : { pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.6, delay: 0.8, ease: EASE }}
+          />
+        </svg>
       </span>
       {line.slice(index + ACCENT_WORD.length)}
     </>
@@ -117,7 +136,7 @@ function Hero() {
                   className="block"
                   {...fadeUp(0.1 + index * 0.08)}
                 >
-                  {renderTitleLine(line)}
+                  {renderTitleLine(line, reduce)}
                 </motion.span>
               ))}
             </h1>
@@ -149,6 +168,14 @@ function Hero() {
                 <ArrowDownIcon className="size-4 shrink-0 transition-transform duration-200 ease-out group-hover:translate-y-1" />
               </a>
             </motion.div>
+
+            {/* Las cuatro etapas reales de la ruta, como línea de metadatos del hero. */}
+            <motion.p
+              className="text-muted-foreground mt-14 max-w-[52ch] font-mono text-[11px] leading-relaxed tracking-[0.18em] uppercase"
+              {...fadeUp(0.62, 8)}
+            >
+              {HOME.ruta.stages.map((stage) => `${stage.number} ${stage.title}`).join("  ·  ")}
+            </motion.p>
           </div>
         </Container>
 

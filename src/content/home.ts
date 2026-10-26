@@ -69,14 +69,24 @@ export const HOME = {
     title: "IA aplicada para empresas y entidades públicas.",
     panels: [
       {
+        kicker: "B2B",
         title: "Empresas",
         text: "Trabajamos junto a directivos y equipos operativos de empresas medianas y grandes para que la adopción de la IA sea segura, fluida y orientada a resultados.",
       },
       {
+        kicker: "B2G",
         title: "Sector público",
         text: "Acompañamos a entidades de gobierno a formar a sus equipos y adoptar la IA con reglas claras de uso, protección de datos y gobernanza.",
         cta: { label: "Habla con nuestro equipo", href: "/contacto" },
       },
+    ],
+  },
+  /** Espacios reservados para material real (doc §8.5: aún sin fotos ni video público). */
+  media: {
+    items: [
+      { kind: "foto", label: "Sesión de formación en vivo", aspect: "4/5" },
+      { kind: "video", label: "La visión de WonderLabs", aspect: "16/10" },
+      { kind: "foto", label: "Equipo WonderLabs", aspect: "3/4" },
     ],
   },
   credenciales: {
@@ -124,6 +134,7 @@ export const HOME = {
     ],
   },
   ctaFinal: {
+    eyebrow: "Siguiente paso",
     title: "Hagamos que la IA trabaje para tu organización.",
     text: "En una reunión inicial sin costo entendemos qué necesitas y te presentamos una propuesta con alcance y cronograma a la medida.",
     cta: { label: "Agenda la reunión inicial", href: "/contacto" },

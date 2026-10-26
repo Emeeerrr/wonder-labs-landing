@@ -1,48 +1,44 @@
-import { FlaskConical, ShieldAlert, Shuffle, UserMinus } from "lucide-react"
-
 import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
 import { Reveal } from "@/components/brand/reveal"
 import { Section } from "@/components/brand/section"
 import { HOME } from "@/content/home"
 
-/** Un icono lucide fijo por tarjeta, en el mismo orden que `HOME.reto.cards`. */
-const CARD_ICONS = [Shuffle, ShieldAlert, FlaskConical, UserMinus] as const
-
 /**
- * El reto: capítulo claro que diagnostica la brecha entre adopción individual
- * y transformación real. Grid 2×2 de tarjetas (1 col en mobile) seguido de un
- * cierre a modo de blockquote destacado.
+ * El reto: capítulo claro, editorial. Intro fija a la izquierda (sticky en
+ * desktop) y, a la derecha, los cuatro problemas como filas de lectura con
+ * filetes Timberwolf, sin tarjetas ni iconos. Cierra el blockquote destacado.
  */
 function Reto() {
   return (
     <Section tone="light">
       <Container>
-        <Reveal>
-          <Eyebrow>{HOME.reto.eyebrow}</Eyebrow>
-          <h2 className="font-display mt-4 max-w-[22ch] text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight">
-            {HOME.reto.title}
-          </h2>
-          <p className="text-muted-foreground mt-6 max-w-[56ch] text-lg">{HOME.reto.intro}</p>
-        </Reveal>
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-5">
+            <Reveal className="lg:sticky lg:top-28">
+              <Eyebrow>{HOME.reto.eyebrow}</Eyebrow>
+              <h2 className="font-display mt-4 max-w-[18ch] text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight">
+                {HOME.reto.title}
+              </h2>
+              <p className="text-muted-foreground mt-6 max-w-[40ch] text-lg">{HOME.reto.intro}</p>
+            </Reveal>
+          </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
-          {HOME.reto.cards.map((card, index) => {
-            const Icon = CARD_ICONS[index]
-            return (
-              <Reveal key={card.title} delay={index * 0.06}>
-                <article className="group hover:border-brand-blue h-full rounded-2xl border border-[var(--brand-timberwolf)] bg-white p-7 transition-[border-color,transform] duration-200 ease-out hover:-translate-y-0.5">
-                  <div className="bg-brand-blue/10 inline-flex size-11 items-center justify-center rounded-full">
-                    <Icon aria-hidden className="text-brand-blue size-5" />
-                  </div>
-                  <h3 className="font-display mt-5 text-xl font-bold">{card.title}</h3>
-                  <p className="text-muted-foreground mt-2 max-w-[42ch] text-base leading-relaxed">
-                    {card.text}
-                  </p>
-                </article>
+          <ul className="lg:col-span-7">
+            {HOME.reto.cards.map((card, index) => (
+              <Reveal
+                as="li"
+                key={card.title}
+                delay={index * 0.06}
+                className="grid grid-cols-1 gap-2 border-t border-[var(--brand-timberwolf)] py-7 first:border-t-0 first:pt-0 md:grid-cols-[minmax(0,14rem)_1fr] md:gap-6 md:py-8"
+              >
+                <h3 className="font-display text-xl font-bold">{card.title}</h3>
+                <p className="text-muted-foreground max-w-[46ch] text-base leading-relaxed">
+                  {card.text}
+                </p>
               </Reveal>
-            )
-          })}
+            ))}
+          </ul>
         </div>
 
         <Reveal delay={0.1} className="mt-16">
