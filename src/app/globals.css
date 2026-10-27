@@ -1,0 +1,169 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+  --font-heading: var(--font-display);
+  /* Paleta de marca como utilidades (bg-brand-midnight, text-brand-blue, ...) */
+  --color-brand-midnight: var(--brand-midnight);
+  --color-brand-midnight-deep: var(--brand-midnight-deep);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-tangerine: var(--brand-tangerine);
+  --color-brand-timberwolf: var(--brand-timberwolf);
+  --color-brand-smoke: var(--brand-smoke);
+  --color-brand-ink: var(--brand-ink);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Paleta WonderLabs */
+  --brand-midnight: #003a45;
+  --brand-midnight-deep: #01242c;
+  --brand-blue: #00a0d8;
+  --brand-tangerine: #f0801e;
+  --brand-timberwolf: #d2d3d3;
+  --brand-smoke: #f5f5f5;
+  --brand-ink: #313130;
+
+  /* Tokens semánticos de shadcn mapeados a la marca (capítulo claro). */
+  --background: var(--brand-smoke);
+  --foreground: var(--brand-ink);
+  --card: #ffffff;
+  --card-foreground: var(--brand-ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--brand-ink);
+  --primary: var(--brand-midnight);
+  --primary-foreground: var(--brand-smoke);
+  --secondary: var(--brand-timberwolf);
+  --secondary-foreground: var(--brand-ink);
+  --muted: #e9eaea;
+  /* 6.1:1 sobre White Smoke — texto secundario pequeño cumple AA. */
+  --muted-foreground: #5c5d5c;
+  --accent: var(--brand-blue);
+  --accent-foreground: var(--brand-midnight-deep);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: var(--brand-timberwolf);
+  --input: var(--brand-timberwolf);
+  --ring: var(--brand-blue);
+  --chart-1: var(--brand-midnight);
+  --chart-2: var(--brand-blue);
+  --chart-3: var(--brand-tangerine);
+  --chart-4: var(--brand-timberwolf);
+  --chart-5: var(--brand-ink);
+  --radius: 0.625rem;
+}
+
+@layer components {
+  /*
+   * Capítulo oscuro: re-mapea los tokens semánticos para secciones sobre
+   * Midnight Green, con degradé sutil de profundidad hacia midnight-deep.
+   * El degradé es configurable vía --chapter-from / --chapter-to (el footer,
+   * por ejemplo, fija ambos extremos en midnight-deep).
+   *
+   * Nota de contraste: el muted del brief (0.64) queda en 5.6:1 sobre
+   * midnight pero por debajo del piso acordado; se eleva a 0.72 (≈6.7:1)
+   * para asegurar AA en texto pequeño en todo capítulo oscuro.
+   */
+  .chapter-dark {
+    --chapter-from: var(--brand-midnight);
+    --chapter-to: var(--brand-midnight-deep);
+    --background: var(--brand-midnight);
+    --foreground: var(--brand-smoke);
+    --card: rgba(245, 245, 245, 0.04);
+    --card-foreground: var(--brand-smoke);
+    --popover: var(--brand-midnight-deep);
+    --popover-foreground: var(--brand-smoke);
+    --primary: var(--brand-smoke);
+    --primary-foreground: var(--brand-midnight-deep);
+    --secondary: rgba(245, 245, 245, 0.08);
+    --secondary-foreground: var(--brand-smoke);
+    --muted: rgba(245, 245, 245, 0.08);
+    --muted-foreground: rgba(245, 245, 245, 0.72);
+    --accent: var(--brand-blue);
+    --accent-foreground: var(--brand-midnight-deep);
+    --border: rgba(245, 245, 245, 0.14);
+    --input: rgba(245, 245, 245, 0.24);
+    --ring: var(--brand-blue);
+    background-color: var(--chapter-to);
+    background-image: linear-gradient(180deg, var(--chapter-from), var(--chapter-to));
+    color: var(--foreground);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--brand-ink) 32%, transparent) transparent;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  ::selection {
+    background-color: var(--brand-blue);
+    color: var(--brand-midnight-deep);
+  }
+  /* Anillo de foco visible sobre fondos claros y oscuros. */
+  :focus-visible {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 2px;
+  }
+  /* Evita el delay de 300ms y el double-tap-zoom en elementos interactivos táctiles. */
+  a,
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+}
+
+/* Respeto por prefers-reduced-motion: elimina transiciones y animaciones largas. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
