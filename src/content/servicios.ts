@@ -19,7 +19,7 @@ export const SERVICIOS = {
   },
   diagnostico: {
     number: "01",
-    eyebrow: "Etapa 01 · Diagnóstico",
+    eyebrow: "Etapa 01: Diagnóstico",
     title: "Antes de invertir, saber dónde está el retorno.",
     cards: [
       {
@@ -44,7 +44,7 @@ export const SERVICIOS = {
   },
   formacion: {
     number: "02",
-    eyebrow: "Etapa 02 · Formación",
+    eyebrow: "Etapa 02: Formación",
     title: "Formamos a tus equipos para operar con IA.",
     subtitle:
       "Programas de 2 a 3 meses, no talleres sueltos. En vivo, presencial o virtual. Formación inmersiva, interactiva y memorable.",
@@ -75,12 +75,12 @@ export const SERVICIOS = {
         {
           title: "Estándar",
           text: "Formación en una herramienta de IA, con ejercicios sobre el trabajo de cada participante.",
-          meta: "8 sesiones · 90 min",
+          meta: "8 sesiones de 90 min",
         },
         {
           title: "Personalizado",
           text: "Todos los ejemplos y ejercicios construidos sobre la operación real de tu organización.",
-          meta: "6 sesiones · 120 min",
+          meta: "6 sesiones de 120 min",
         },
         {
           title: "Gran escala",
@@ -117,7 +117,7 @@ export const SERVICIOS = {
   },
   implementacion: {
     number: "03",
-    eyebrow: "Etapa 03 · Implementación",
+    eyebrow: "Etapa 03: Implementación",
     title: "IA a la medida, sobre las herramientas que ya usas.",
     frentes: [
       {
@@ -182,7 +182,7 @@ export const SERVICIOS = {
   },
   acompanamiento: {
     number: "04",
-    eyebrow: "Etapa 04 · Acompañamiento",
+    eyebrow: "Etapa 04: Acompañamiento",
     title: "La adopción no termina con el programa.",
     intro:
       "Las herramientas de IA cambian cada mes. Te ayudamos a convertir esos cambios en trabajo mejor hecho. Se contrata mes a mes.",

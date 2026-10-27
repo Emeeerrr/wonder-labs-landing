@@ -21,11 +21,8 @@ function EtapaAcompanamiento() {
     <Section id="acompanamiento" tone="light" className="scroll-mt-32 md:scroll-mt-36">
       <Container>
         <Reveal>
-          <span className="text-brand-blue font-mono text-2xl font-semibold tabular-nums md:text-3xl">
-            {acompanamiento.number}
-          </span>
-          <Eyebrow className="mt-3">{acompanamiento.eyebrow}</Eyebrow>
-          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight">
+          <Eyebrow>{acompanamiento.eyebrow}</Eyebrow>
+          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] leading-[1.12] font-medium">
             {acompanamiento.title}
           </h2>
           <p className="text-muted-foreground mt-6 max-w-[62ch] text-lg md:text-xl">
@@ -42,7 +39,7 @@ function EtapaAcompanamiento() {
                   <div className="bg-brand-blue/5 inline-flex size-11 items-center justify-center rounded-full">
                     <Icon aria-hidden className="text-brand-blue size-5" />
                   </div>
-                  <h3 className="font-display mt-5 text-xl font-bold">{item.title}</h3>
+                  <h3 className="font-display mt-5 text-xl font-medium">{item.title}</h3>
                   <p className="text-muted-foreground mt-2 max-w-[42ch] text-base leading-relaxed">
                     {item.text}
                   </p>

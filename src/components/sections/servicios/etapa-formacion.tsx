@@ -19,11 +19,8 @@ function EtapaFormacion() {
     <Section id="formacion" tone="dark" className="scroll-mt-32 md:scroll-mt-36">
       <Container>
         <Reveal>
-          <span className="text-brand-blue font-mono text-2xl font-semibold tabular-nums md:text-3xl">
-            {formacion.number}
-          </span>
-          <Eyebrow className="mt-3">{formacion.eyebrow}</Eyebrow>
-          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight">
+          <Eyebrow>{formacion.eyebrow}</Eyebrow>
+          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] leading-[1.12] font-medium">
             {formacion.title}
           </h2>
           <p className="text-muted-foreground mt-6 max-w-[62ch] text-lg md:text-xl">
@@ -36,7 +33,7 @@ function EtapaFormacion() {
 
         <Reveal delay={0.06} className="mt-12">
           <MediaSlot
-            label="Programa Equipos · Sesión presencial"
+            label="Programa Equipos, sesión presencial"
             aspect="16/9"
             tone="dark"
             className="md:max-w-[82%]"
@@ -46,23 +43,23 @@ function EtapaFormacion() {
         {/* Programa Liderazgo */}
         <Reveal delay={0.08} className="mt-16">
           <article className="rounded-3xl border border-white/10 bg-white/[0.04] p-8 md:p-10">
-            <h3 className="font-display text-2xl font-bold md:text-[1.75rem]">
+            <h3 className="font-display text-2xl font-medium md:text-[1.75rem]">
               {formacion.liderazgo.title}
             </h3>
 
             <dl className="mt-8 grid grid-cols-1 gap-6 border-t border-white/10 pt-8 md:grid-cols-3">
               {formacion.liderazgo.meta.map((row) => (
                 <div key={row.label}>
-                  <dt className="text-muted-foreground font-mono text-xs tracking-[0.1em] uppercase">
-                    {row.label}
-                  </dt>
+                  <dt className="text-muted-foreground text-xs font-semibold">{row.label}</dt>
                   <dd className="mt-2 text-base leading-relaxed">{row.value}</dd>
                 </div>
               ))}
             </dl>
 
             <div className="mt-10 border-t border-white/10 pt-8">
-              <h4 className="font-display text-lg font-bold">{formacion.liderazgo.temarioTitle}</h4>
+              <h4 className="font-display text-lg font-medium">
+                {formacion.liderazgo.temarioTitle}
+              </h4>
               <ol className="mt-5 flex flex-col gap-4">
                 {formacion.liderazgo.temario.map((item, index) => (
                   <li key={item} className="flex items-start gap-4">
@@ -79,7 +76,7 @@ function EtapaFormacion() {
 
         {/* Programa Equipos */}
         <Reveal delay={0.1} className="mt-16">
-          <h3 className="font-display text-2xl font-bold md:text-[1.75rem]">
+          <h3 className="font-display text-2xl font-medium md:text-[1.75rem]">
             {formacion.equipos.title}
           </h3>
           <p className="text-muted-foreground mt-4 max-w-[62ch] text-base leading-relaxed md:text-lg">
@@ -90,13 +87,11 @@ function EtapaFormacion() {
             {formacion.equipos.modalidades.map((modalidad, index) => (
               <Reveal key={modalidad.title} delay={index * 0.06}>
                 <article className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-7">
-                  <h4 className="font-display text-xl font-bold">{modalidad.title}</h4>
+                  <h4 className="font-display text-xl font-medium">{modalidad.title}</h4>
                   <p className="text-muted-foreground mt-3 text-base leading-relaxed">
                     {modalidad.text}
                   </p>
-                  <p className="text-brand-blue mt-5 font-mono text-xs tracking-[0.1em] uppercase">
-                    {modalidad.meta}
-                  </p>
+                  <p className="text-brand-blue mt-5 text-xs font-semibold">{modalidad.meta}</p>
                 </article>
               </Reveal>
             ))}
@@ -105,7 +100,7 @@ function EtapaFormacion() {
 
         {/* Toda formación incluye */}
         <Reveal delay={0.12} className="mt-16 border-t border-white/10 pt-12">
-          <h3 className="font-display text-2xl font-bold">{formacion.incluye.title}</h3>
+          <h3 className="font-display text-2xl font-medium">{formacion.incluye.title}</h3>
           <ol className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
             {formacion.incluye.items.map((item, index) => (
               <li key={item.title} className="flex items-start gap-4">

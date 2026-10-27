@@ -19,11 +19,8 @@ function EtapaImplementacion() {
     <Section id="implementacion" tone="light" className="scroll-mt-32 md:scroll-mt-36">
       <Container>
         <Reveal>
-          <span className="text-brand-blue font-mono text-2xl font-semibold tabular-nums md:text-3xl">
-            {implementacion.number}
-          </span>
-          <Eyebrow className="mt-3">{implementacion.eyebrow}</Eyebrow>
-          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight">
+          <Eyebrow>{implementacion.eyebrow}</Eyebrow>
+          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] leading-[1.12] font-medium">
             {implementacion.title}
           </h2>
         </Reveal>
@@ -32,13 +29,11 @@ function EtapaImplementacion() {
           {implementacion.frentes.map((frente, index) => (
             <Reveal key={frente.title} delay={index * 0.06}>
               <article className="h-full rounded-2xl border border-[var(--brand-timberwolf)] bg-white p-7">
-                <h3 className="font-display text-xl font-bold">{frente.title}</h3>
-                <p className="text-muted-foreground mt-1 font-mono text-xs tracking-[0.1em] uppercase">
-                  {frente.sub}
-                </p>
+                <h3 className="font-display text-xl font-medium">{frente.title}</h3>
+                <p className="text-muted-foreground mt-1 text-xs font-semibold">{frente.sub}</p>
                 <p className="mt-4 text-base leading-relaxed">{frente.text}</p>
 
-                <h4 className="text-muted-foreground mt-6 font-mono text-xs tracking-[0.1em] uppercase">
+                <h4 className="text-muted-foreground mt-6 text-xs font-semibold">
                   {frente.incluyeTitle}
                 </h4>
                 <ul className="mt-4 flex flex-col gap-3">
@@ -56,7 +51,7 @@ function EtapaImplementacion() {
 
         {/* Cómo implementamos — mini-timeline horizontal de 4 fases */}
         <Reveal delay={0.1} className="mt-16 border-t border-[var(--brand-timberwolf)] pt-12">
-          <h3 className="font-display text-2xl font-bold">{implementacion.fases.title}</h3>
+          <h3 className="font-display text-2xl font-medium">{implementacion.fases.title}</h3>
           <p className="text-muted-foreground mt-2 text-base">{implementacion.fases.subtitle}</p>
 
           <ol className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-6">
@@ -71,7 +66,7 @@ function EtapaImplementacion() {
                     className="hidden h-px flex-1 bg-[var(--brand-timberwolf)] md:mt-3 md:mb-4 md:block"
                   />
                 </div>
-                <h4 className="font-display mt-2 text-lg font-bold md:mt-0">{fase.title}</h4>
+                <h4 className="font-display mt-2 text-lg font-medium md:mt-0">{fase.title}</h4>
                 <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{fase.text}</p>
               </li>
             ))}

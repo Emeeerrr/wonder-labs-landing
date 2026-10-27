@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Bitter, JetBrains_Mono, Manrope } from "next/font/google"
 import "./globals.css"
 
@@ -9,7 +9,8 @@ import { SITE } from "@/content/site"
 const bitter = Bitter({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "700", "800"],
+  weight: ["400", "500", "700"],
+  style: ["normal", "italic"],
 })
 
 const manrope = Manrope({
@@ -41,6 +42,9 @@ export const metadata: Metadata = {
   },
 }
 
+// Color de la barra del navegador: midnight-deep, el piso oscuro de la marca.
+export const viewport: Viewport = { themeColor: "#01242C" }
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -50,13 +54,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         {/*
          * Sin JS las animaciones de entrada (`motion`'s `initial`) no corren:
-         * fuerza el estado final para que el contenido sea visible. Cubre la
-         * intro del hero (`data-hero-intro`) y todos los `Reveal` del sitio
-         * (`data-reveal`) — un solo bloque global para que aplique en
-         * cualquier página, no solo en la home.
+         * fuerza el estado final para que el contenido sea visible. La única
+         * animación de carga del sitio es la intro del hero (`data-hero-intro`).
          */}
         <noscript>
-          <style>{`[data-hero-intro],[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+          <style>{`[data-hero-intro]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
         <a
           href="#contenido"

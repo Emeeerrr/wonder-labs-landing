@@ -1,5 +1,6 @@
 import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
+import { LightLeakCanvas } from "@/components/brand/light-leak-canvas"
 import { Reveal } from "@/components/brand/reveal"
 import { SERVICIOS } from "@/content/servicios"
 
@@ -22,7 +23,7 @@ function ServiciosSubnav() {
             <li key={item.href} className="shrink-0">
               <a
                 href={item.href}
-                className="text-muted-foreground hover:text-brand-blue inline-flex min-h-11 items-center font-mono text-xs tracking-[0.1em] uppercase transition-colors duration-200 ease-out"
+                className="text-muted-foreground hover:text-brand-blue inline-flex min-h-11 items-center text-xs font-semibold transition-colors duration-200 ease-out"
               >
                 {item.label}
               </a>
@@ -42,11 +43,23 @@ function ServiciosSubnav() {
 function ServiciosHero() {
   return (
     <>
-      <section className="chapter-dark bg-[linear-gradient(160deg,var(--brand-midnight-deep),var(--brand-midnight))] py-24">
-        <Container>
+      <section className="chapter-dark relative overflow-hidden py-24 [--chapter-from:var(--brand-midnight-deep)]">
+        {/* Light leak tenue; sin JS queda el piso sólido midnight-deep. */}
+        <div aria-hidden className="absolute inset-0">
+          <LightLeakCanvas
+            className="size-full"
+            intensity={0.45}
+            grain={0.3}
+            speed={0.7}
+            leaks={1}
+            quality={0.6}
+          />
+        </div>
+
+        <Container className="relative z-10">
           <Reveal>
             <Eyebrow>{SERVICIOS.hero.eyebrow}</Eyebrow>
-            <h1 className="font-display mt-4 max-w-[26ch] text-[clamp(2.5rem,6vw,4rem)] font-extrabold tracking-tight">
+            <h1 className="font-display mt-4 max-w-[26ch] text-[clamp(2.5rem,6vw,4rem)] leading-[1.12] font-medium">
               {SERVICIOS.hero.title}
             </h1>
             <p className="text-muted-foreground mt-6 max-w-[56ch] text-lg md:text-xl">

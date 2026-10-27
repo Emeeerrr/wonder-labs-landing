@@ -1,35 +1,29 @@
 import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
-import { Reveal } from "@/components/brand/reveal"
 import { Section } from "@/components/brand/section"
 import { HOME } from "@/content/home"
 
 /**
- * Resultados: capítulo claro, tipográfico. Cuatro beneficios en retícula de
- * dos columnas, cada uno abierto por una regla corta en Blue Green; sin
- * tarjetas, sombras ni iconos, para distinguirse de El reto y dejar que el
- * texto cargue el peso.
+ * Resultados: cuatro beneficios como párrafos con cabeza embebida (run-in),
+ * el recurso editorial de los informes impresos — el título en negrita abre
+ * la frase y el texto corre a continuación. Sin reglas, sin iconos, sin grid
+ * de tarjetas. El h3 inline conserva la jerarquía para lectores de pantalla.
  */
 function Resultados() {
   return (
-    <Section tone="light">
+    <Section tone="light" className="pt-0">
       <Container>
-        <Reveal>
-          <Eyebrow>{HOME.resultados.eyebrow}</Eyebrow>
-          <h2 className="font-display mt-4 max-w-[22ch] text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight">
-            {HOME.resultados.title}
-          </h2>
-        </Reveal>
+        <Eyebrow>{HOME.resultados.eyebrow}</Eyebrow>
+        <h2 className="font-display mt-4 max-w-[22ch] text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.12] font-medium">
+          {HOME.resultados.title}
+        </h2>
 
-        <div className="mt-14 grid grid-cols-1 gap-x-14 gap-y-12 md:grid-cols-2">
-          {HOME.resultados.benefits.map((benefit, index) => (
-            <Reveal key={benefit.title} delay={index * 0.06}>
-              <span aria-hidden className="bg-brand-blue block h-0.5 w-10" />
-              <h3 className="font-display mt-5 text-xl font-bold">{benefit.title}</h3>
-              <p className="text-muted-foreground mt-2 max-w-[46ch] text-base leading-relaxed">
-                {benefit.text}
-              </p>
-            </Reveal>
+        <div className="mt-12 grid max-w-[72rem] grid-cols-1 gap-x-16 gap-y-9 md:grid-cols-2">
+          {HOME.resultados.benefits.map((benefit) => (
+            <div key={benefit.title} className="max-w-[52ch] text-base leading-relaxed">
+              <h3 className="inline font-sans text-base font-semibold">{benefit.title}.</h3>{" "}
+              <p className="text-muted-foreground inline">{benefit.text}</p>
+            </div>
           ))}
         </div>
       </Container>

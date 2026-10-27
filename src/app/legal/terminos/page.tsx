@@ -13,7 +13,7 @@ function TerminosPage() {
     <Section tone="light">
       <Container>
         <article className="mx-auto max-w-[720px]">
-          <h1 className="font-display text-[clamp(2rem,4vw,2.75rem)] font-extrabold tracking-tight">
+          <h1 className="font-display text-[clamp(2rem,4vw,2.75rem)] leading-[1.12] font-medium">
             Términos y condiciones de uso
           </h1>
           <p className="text-muted-foreground mt-2 text-sm">
@@ -22,7 +22,7 @@ function TerminosPage() {
 
           <div className="mt-10 flex flex-col gap-8 text-base leading-relaxed">
             <section>
-              <h2 className="font-display mt-0 mb-3 text-xl font-bold">
+              <h2 className="font-display mt-0 mb-3 text-xl font-medium">
                 1. Aceptación de los términos
               </h2>
               <p>
@@ -34,7 +34,7 @@ function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">2. Uso del sitio</h2>
+              <h2 className="font-display mb-3 text-xl font-medium">2. Uso del sitio</h2>
               <p>
                 Este sitio tiene fines informativos y comerciales: presentar los servicios de
                 WonderLabs y permitir que personas interesadas se pongan en contacto con nosotros.
@@ -45,7 +45,7 @@ function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">3. Propiedad intelectual</h2>
+              <h2 className="font-display mb-3 text-xl font-medium">3. Propiedad intelectual</h2>
               <p>
                 Los textos, gráficos, logotipos, marca y demás contenidos de este sitio son
                 propiedad de WonderLabs o se usan con la autorización correspondiente, y están
@@ -56,7 +56,7 @@ function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">4. Marcas de terceros</h2>
+              <h2 className="font-display mb-3 text-xl font-medium">4. Marcas de terceros</h2>
               <p>
                 Claude, ChatGPT, Microsoft Copilot y Gemini son marcas de sus respectivos titulares;
                 WonderLabs no está afiliada a ellas. Las mencionamos en este sitio únicamente con
@@ -66,7 +66,7 @@ function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">
+              <h2 className="font-display mb-3 text-xl font-medium">
                 5. Limitación de responsabilidad
               </h2>
               <p>
@@ -79,7 +79,7 @@ function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">6. Enlaces a terceros</h2>
+              <h2 className="font-display mb-3 text-xl font-medium">6. Enlaces a terceros</h2>
               <p>
                 Este sitio puede incluir enlaces a sitios de terceros. WonderLabs no controla ni se
                 hace responsable por el contenido, las políticas o las prácticas de esos sitios.
@@ -87,7 +87,7 @@ function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">7. Modificaciones</h2>
+              <h2 className="font-display mb-3 text-xl font-medium">7. Modificaciones</h2>
               <p>
                 WonderLabs puede actualizar estos términos en cualquier momento para reflejar
                 cambios normativos, operativos o en los servicios ofrecidos. La versión vigente es
@@ -96,7 +96,7 @@ function TerminosPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">
+              <h2 className="font-display mb-3 text-xl font-medium">
                 8. Ley aplicable y jurisdicción
               </h2>
               <p>

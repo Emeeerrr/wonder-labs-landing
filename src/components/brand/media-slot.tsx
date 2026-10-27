@@ -64,11 +64,11 @@ function MediaSlot({
       </div>
       <figcaption
         className={cn(
-          "absolute bottom-4 left-5 font-mono text-[11px] tracking-[0.18em] uppercase",
+          "absolute bottom-4 left-5 text-xs font-medium",
           dark ? "text-brand-smoke/70" : "text-brand-ink/60"
         )}
       >
-        {isVideo ? "Video" : "Foto"} · {label}
+        {isVideo ? "Video" : "Foto"}: {label}
       </figcaption>
     </figure>
   )

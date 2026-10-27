@@ -22,7 +22,7 @@ function Faq() {
       <Container>
         <Reveal>
           <Eyebrow>{SERVICIOS.faq.eyebrow}</Eyebrow>
-          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight">
+          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] leading-[1.12] font-medium">
             {SERVICIOS.faq.title}
           </h2>
         </Reveal>

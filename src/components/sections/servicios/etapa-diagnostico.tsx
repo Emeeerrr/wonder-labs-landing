@@ -22,11 +22,8 @@ function EtapaDiagnostico() {
     <Section id="diagnostico" tone="light" className="scroll-mt-32 md:scroll-mt-36">
       <Container>
         <Reveal>
-          <span className="text-brand-blue font-mono text-2xl font-semibold tabular-nums md:text-3xl">
-            {diagnostico.number}
-          </span>
-          <Eyebrow className="mt-3">{diagnostico.eyebrow}</Eyebrow>
-          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight">
+          <Eyebrow>{diagnostico.eyebrow}</Eyebrow>
+          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] leading-[1.12] font-medium">
             {diagnostico.title}
           </h2>
         </Reveal>
@@ -36,7 +33,7 @@ function EtapaDiagnostico() {
             <Reveal key={card.title} delay={index * 0.06}>
               <article className="h-full rounded-2xl border border-[var(--brand-timberwolf)] bg-white p-7">
                 <div className="flex flex-wrap items-center gap-3">
-                  <h3 className="font-display text-xl font-bold">{card.title}</h3>
+                  <h3 className="font-display text-xl font-medium">{card.title}</h3>
                   {/*
                    * "Tangerine suave": única excepción deliberada a la regla
                    * "tangerine solo en CTAs" — señal de precio/acción con
@@ -65,7 +62,7 @@ function EtapaDiagnostico() {
         </div>
 
         <Reveal delay={0.12} className="mt-12">
-          <h3 className="font-display text-xl font-bold">{diagnostico.entregablesTitle}</h3>
+          <h3 className="font-display text-xl font-medium">{diagnostico.entregablesTitle}</h3>
           <ul className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
             {diagnostico.entregables.map((item, index) => {
               const Icon = ENTREGABLE_ICONS[index]

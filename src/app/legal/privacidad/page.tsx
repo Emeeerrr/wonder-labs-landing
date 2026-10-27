@@ -14,7 +14,7 @@ function PrivacidadPage() {
     <Section tone="light">
       <Container>
         <article className="mx-auto max-w-[720px]">
-          <h1 className="font-display text-[clamp(2rem,4vw,2.75rem)] font-extrabold tracking-tight">
+          <h1 className="font-display text-[clamp(2rem,4vw,2.75rem)] leading-[1.12] font-medium">
             Política de tratamiento de datos personales
           </h1>
           <p className="text-muted-foreground mt-2 text-sm">
@@ -23,7 +23,7 @@ function PrivacidadPage() {
 
           <div className="mt-10 flex flex-col gap-8 text-base leading-relaxed">
             <section>
-              <h2 className="font-display mt-0 mb-3 text-xl font-bold">
+              <h2 className="font-display mt-0 mb-3 text-xl font-medium">
                 1. Responsable del tratamiento
               </h2>
               <p>
@@ -36,7 +36,7 @@ function PrivacidadPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">2. Datos que recogemos</h2>
+              <h2 className="font-display mb-3 text-xl font-medium">2. Datos que recogemos</h2>
               <p>
                 A través del formulario de{" "}
                 <Link href="/contacto" className="underline underline-offset-4">
@@ -52,7 +52,7 @@ function PrivacidadPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">
+              <h2 className="font-display mb-3 text-xl font-medium">
                 3. Finalidades del tratamiento
               </h2>
               <p className="mb-3">Los datos recogidos se usan únicamente para:</p>
@@ -73,7 +73,7 @@ function PrivacidadPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">4. Derechos del titular</h2>
+              <h2 className="font-display mb-3 text-xl font-medium">4. Derechos del titular</h2>
               <p>
                 Como titular de los datos, tienes derecho a conocer, actualizar, rectificar y
                 suprimir tus datos personales, así como a revocar la autorización otorgada para su
@@ -89,7 +89,7 @@ function PrivacidadPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">
+              <h2 className="font-display mb-3 text-xl font-medium">
                 5. Seguridad de la información
               </h2>
               <p>
@@ -100,7 +100,7 @@ function PrivacidadPage() {
             </section>
 
             <section>
-              <h2 className="font-display mb-3 text-xl font-bold">6. Vigencia</h2>
+              <h2 className="font-display mb-3 text-xl font-medium">6. Vigencia</h2>
               <p>
                 Los datos personales se conservarán durante el tiempo necesario para cumplir las
                 finalidades descritas en esta política, y posteriormente durante el plazo que exijan

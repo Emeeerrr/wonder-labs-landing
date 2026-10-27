@@ -1,119 +1,63 @@
-"use client"
-
-import * as React from "react"
 import Link from "next/link"
-import { ArrowRightIcon } from "lucide-react"
-import { motion, useScroll, useSpring, useTransform } from "motion/react"
 
 import { Container } from "@/components/brand/container"
 import { Eyebrow } from "@/components/brand/eyebrow"
-import { Reveal } from "@/components/brand/reveal"
 import { Section } from "@/components/brand/section"
 import { HOME } from "@/content/home"
-import { useReducedMotionSafe } from "@/lib/use-reduced-motion-safe"
+
+/* Cada etapa enlaza a su sección en /servicios (ids de etapa-*.tsx). */
+const ETAPA_ANCLA = {
+  "01": "diagnostico",
+  "02": "formacion",
+  "03": "implementacion",
+  "04": "acompanamiento",
+} as const satisfies Record<"01" | "02" | "03" | "04", string>
 
 /**
- * Línea de progreso: se traza con el scroll de la lista de etapas usando
- * `scaleY` (transform-only, sin layout thrash) con origen arriba. Un spring
- * suaviza el seguimiento del scroll sin introducir animación de layout.
- * Con reduced-motion se renderiza completa y estática.
- */
-function ProgressLine({ targetRef }: { targetRef: React.RefObject<HTMLElement | null> }) {
-  const reduce = useReducedMotionSafe()
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start center", "end center"],
-  })
-  const spring = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.3 })
-  const scaleY = useTransform(spring, [0, 1], [0, 1])
-
-  return (
-    <div
-      aria-hidden
-      className="absolute top-0 bottom-0 left-0 w-px bg-white/12"
-      style={{ transformOrigin: "top" }}
-    >
-      <motion.div
-        className="from-brand-blue to-brand-midnight absolute inset-0 origin-top bg-linear-to-b"
-        style={{ scaleY: reduce ? 1 : scaleY }}
-      />
-    </div>
-  )
-}
-
-/** Orbe degradé de 12px que marca cada etapa sobre la línea — eco de la molécula del hero. */
-function StageOrb() {
-  return (
-    <span
-      aria-hidden
-      className="absolute top-1.5 left-0 size-3 -translate-x-1/2 rounded-full"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle at 35% 30%, var(--brand-blue), var(--brand-midnight))",
-        boxShadow:
-          "0 0 0 4px var(--brand-midnight), 0 0 12px color-mix(in srgb, var(--brand-blue) 60%, transparent)",
-      }}
-    />
-  )
-}
-
-/**
- * La ruta: capítulo oscuro inmersivo, columna vertebral de la página. Cuatro
- * etapas con numeración mono, orbes sobre una línea de progreso que se dibuja
- * con el scroll, y una nota de cierre con CTA secundario hacia /servicios.
+ * La ruta: abre el acto claro como una tabla de documento. Las cuatro etapas
+ * son una secuencia real de trabajo, así que la numeración es información,
+ * no decoración: número mono pequeño, título en serif y descripción, fila a
+ * fila sobre filetes Timberwolf. Sin orbes, sin línea de progreso animada.
  */
 function Ruta() {
-  const listRef = React.useRef<HTMLOListElement>(null)
-
   return (
-    <Section id="ruta" tone="dark">
+    <Section id="ruta" tone="light" className="scroll-mt-20">
       <Container>
-        <Reveal>
-          <Eyebrow>{HOME.ruta.eyebrow}</Eyebrow>
-          <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight">
-            {HOME.ruta.title}
-          </h2>
-        </Reveal>
+        <Eyebrow>{HOME.ruta.eyebrow}</Eyebrow>
+        <h2 className="font-display mt-4 max-w-[26ch] text-[clamp(2rem,4.2vw,3.25rem)] leading-[1.12] font-medium">
+          {HOME.ruta.title}
+        </h2>
 
-        <div className="relative mt-16">
-          <ProgressLine targetRef={listRef} />
-          <ol ref={listRef} className="flex flex-col gap-12 pl-10 md:gap-16 md:pl-16">
-            {HOME.ruta.stages.map((stage, index) => (
-              <Reveal
-                key={stage.number}
-                as="li"
-                delay={index * 0.08}
-                className="relative grid grid-cols-[auto_1fr] items-start gap-5 md:gap-8"
+        <ol className="mt-14 border-t border-[var(--brand-timberwolf)]">
+          {HOME.ruta.stages.map((stage) => (
+            <li key={stage.number} className="border-b border-[var(--brand-timberwolf)]">
+              <Link
+                href={`/servicios#${ETAPA_ANCLA[stage.number]}`}
+                className="group -mx-4 grid grid-cols-[3.5rem_1fr] gap-x-4 gap-y-1 px-4 py-7 transition-colors duration-200 ease-out hover:bg-[color-mix(in_srgb,var(--brand-blue)_6%,transparent)] md:grid-cols-[6rem_minmax(0,16rem)_1fr] md:gap-x-8 md:py-9"
               >
-                <span className="absolute top-1.5 -left-10 md:-left-16">
-                  <StageOrb />
-                </span>
-                <span className="text-brand-blue font-mono text-2xl font-semibold tabular-nums md:text-3xl">
+                <span className="text-muted-foreground pt-1.5 font-mono text-sm tabular-nums">
                   {stage.number}
                 </span>
-                <div>
-                  <h3 className="font-display text-[1.75rem] font-bold md:text-[2rem]">
-                    {stage.title}
-                  </h3>
-                  <p className="text-muted-foreground mt-2 max-w-[46ch] text-base leading-relaxed md:text-lg">
-                    {stage.text}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
+                <h3 className="font-display group-hover:decoration-brand-blue text-2xl font-medium underline decoration-transparent decoration-2 underline-offset-4 transition-colors duration-200 ease-out">
+                  {stage.title}
+                </h3>
+                <p className="text-muted-foreground col-start-2 max-w-[52ch] text-base leading-relaxed md:col-start-3 md:pt-1">
+                  {stage.text}
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ol>
 
-        <Reveal delay={0.1} className="mt-16 max-w-[56ch] pl-10 md:pl-16">
+        <div className="mt-10 max-w-[56ch]">
           <p className="text-muted-foreground text-base leading-relaxed">{HOME.ruta.note}</p>
           <Link
             href={HOME.ruta.cta.href}
-            className="group text-brand-blue mt-6 inline-flex min-h-11 items-center gap-2 text-base font-semibold transition-colors duration-200 ease-out hover:text-[color-mix(in_srgb,var(--brand-blue)_80%,white)]"
+            className="text-brand-midnight decoration-brand-blue hover:text-brand-blue mt-5 inline-flex min-h-11 items-center text-base font-semibold underline decoration-2 underline-offset-4 transition-colors duration-200 ease-out"
           >
             {HOME.ruta.cta.label}
-            <ArrowRightIcon className="size-4 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-1" />
           </Link>
-        </Reveal>
+        </div>
       </Container>
     </Section>
   )
